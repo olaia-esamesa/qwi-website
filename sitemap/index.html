@@ -1,0 +1,407 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sitemap web Qwi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una columna de lectura con índice lateral fijo en escritorio; árbol del sitemap arriba, criterios de navegación, fichas de página y decisiones. */
+:root{
+  --bg:#FAFBFC; --surface:#FFFFFF; --fg:#151A22; --muted:#5D6675; --faint:#8A93A2; --line:#E3E7ED; --line-strong:#C9D0DA; --accent:#22345C;
+  --kumu:#3FAE93; --olai:#D79A1E; --hiki:#E06A35; --mailuna:#86B330;
+  --c:#2E7D5B; --m:#22345C; --w:#6A7280; --p:#7A5AA6; --v:#B4541C;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1218; --surface:#151A22; --fg:#E6E9EE; --muted:#9AA3B1; --faint:#6E7785; --line:#252C37; --line-strong:#364050; --accent:#9DB2E0;
+  --kumu:#5CC9AD; --olai:#E8B44A; --hiki:#F08A5C; --mailuna:#A6D257;
+  --c:#6CC79D; --m:#9DB2E0; --w:#9AA3B1; --p:#B79BE0; --v:#F0975C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1218; --surface:#151A22; --fg:#E6E9EE; --muted:#9AA3B1; --faint:#6E7785; --line:#252C37; --line-strong:#364050; --accent:#9DB2E0;
+  --kumu:#5CC9AD; --olai:#E8B44A; --hiki:#F08A5C; --mailuna:#A6D257;
+  --c:#6CC79D; --m:#9DB2E0; --w:#9AA3B1; --p:#B79BE0; --v:#F0975C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-block:48px 96px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr);gap:32px;padding-block:28px 64px}.toc{display:none}}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 32px);align-self:start;display:flex;flex-direction:column;gap:2px;font-size:13px}
+.toc .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:16px 0 6px}
+.toc .lbl:first-child{margin-top:0}
+.toc a{text-decoration:none;color:var(--muted);padding:3px 0;display:flex;align-items:center;gap:8px}
+.toc a:hover,.toc a:focus-visible{color:var(--fg)}
+main{min-width:0;display:flex;flex-direction:column;gap:72px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+h1{font-size:28px;font-weight:600;letter-spacing:-.015em;margin:6px 0 10px;text-wrap:balance}
+h2{font-size:19px;font-weight:600;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h3{font-size:17px;font-weight:600;margin:0}
+h4{font-size:14px;font-weight:600;margin:0}
+p{margin:0}
+.lead{color:var(--muted);max-width:68ch}
+.meta{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:16px;font-size:13px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.src{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.04em;border:1px solid currentColor;border-radius:3px;padding:0 4px;line-height:16px;display:inline-block}
+.src.C{color:var(--c)}.src.M{color:var(--m)}.src.W{color:var(--w)}.src.P{color:var(--p)}.src.V{color:var(--v)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none;background:var(--line-strong)}
+.dot.kumu{background:var(--kumu)}.dot.olai{background:var(--olai)}.dot.hiki{background:var(--hiki)}.dot.mailuna{background:var(--mailuna)}
+.sec-head{display:flex;flex-direction:column;gap:4px;margin-bottom:20px}
+.pend{color:var(--v)}
+
+/* Árbol */
+.menu{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-bottom:20px;font-size:13px;color:var(--muted)}
+.menu .k{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-right:6px}
+.menu .item{padding:4px 10px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg)}
+.menu .cta{padding:4px 12px;border-radius:4px;background:var(--fg);color:var(--bg);font-weight:500}
+.menu .sp{flex:1}
+.tree{overflow-x:auto;padding-bottom:4px}
+.tree-inner{min-width:760px;display:flex;flex-direction:column;gap:0}
+.node{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line-strong);border-radius:6px;padding:10px 12px;font-size:13.5px}
+.node:hover,.node:focus-visible{border-color:var(--fg);outline:none}
+.node .n{font-weight:600;display:flex;align-items:center;gap:7px}
+.node .u{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:2px}
+.node .st{font-size:11.5px;color:var(--muted);margin-top:4px}
+.node.new{border-color:var(--accent)}
+.node.phase2{border-style:dashed;background:transparent}
+.root{width:220px;margin:0 auto}
+.stem{width:1px;height:20px;background:var(--line-strong);margin:0 auto}
+.cols{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;gap:12px;border-top:1px solid var(--line-strong);padding-top:20px}
+.col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.group{border:1px dashed var(--line-strong);border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.group .gl{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.group .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.foot{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);align-items:center}
+.foot .k{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-right:4px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface);white-space:nowrap}
+.redir{text-decoration:line-through;color:var(--faint)}
+.note{font-size:12.5px;color:var(--muted);margin-top:10px;max-width:80ch}
+
+/* Navegación y recorridos */
+.ux{display:flex;flex-direction:column;gap:36px}
+.ux-block{display:flex;flex-direction:column;gap:12px}
+.rules{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.rules li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rules li b{font-weight:600}
+.rules .ss{display:flex;gap:4px;align-items:baseline}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);font-weight:500}
+tr:last-child td{border-bottom:0}
+.journeys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.journeys{grid-template-columns:minmax(0,1fr)}}
+.jr{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.jr .who{font-size:12.5px;color:var(--muted)}
+.jr ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.jr ol li{font-size:13.5px;padding:6px 0 6px 18px;position:relative;border-left:1px solid var(--line-strong);margin-left:4px}
+.jr ol li::before{content:"";position:absolute;left:-4px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--surface);border:1px solid var(--fg)}
+.jr ol li:last-child::before{background:var(--fg)}
+.jr .why{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+
+/* Fichas de página */
+.page{border-top:1px solid var(--line-strong);padding-top:28px;scroll-margin-top:24px;display:flex;flex-direction:column;gap:22px}
+.page-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
+.page-top .t{display:flex;align-items:center;gap:10px}
+.page-top .t .dot{width:10px;height:10px}
+.urls{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap;align-items:baseline}
+.status{font-family:var(--sans);font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 10px}
+.status.new{color:var(--accent);border-color:var(--accent)}
+.brief{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:0}
+@media (max-width:760px){.brief{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media (max-width:440px){.brief{grid-template-columns:minmax(0,1fr)}}
+.brief div{background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.brief dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.brief dd{margin:0;font-size:13.5px}
+ol.secs{list-style:none;margin:0;padding:0;counter-reset:s;display:flex;flex-direction:column}
+ol.secs li{counter-increment:s;display:grid;grid-template-columns:28px minmax(0,190px) minmax(0,1fr) auto;gap:4px 16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+ol.secs li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+ol.secs .sn{font-weight:600;font-size:14px}
+ol.secs .sd{font-size:14px;max-width:70ch}
+ol.secs .ss{display:flex;gap:4px;justify-content:flex-end}
+@media (max-width:700px){ol.secs li{grid-template-columns:28px minmax(0,1fr)}ol.secs .sd,ol.secs .ss{grid-column:2}ol.secs .ss{justify-content:flex-start}}
+.tpl{font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+
+/* Decisiones */
+.qs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.qs li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.qs .impact{font-size:12px;color:var(--muted);white-space:nowrap}
+@media (max-width:560px){.qs li{grid-template-columns:minmax(0,1fr)}.qs .impact{white-space:normal}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<div class="wrap">
+  <nav class="toc" id="toc" aria-label="Índice"></nav>
+  <main>
+    <header>
+      <div class="eyebrow">Qwi · Rediseño web · Esamesa</div>
+      <h1>Sitemap y contenidos por página</h1>
+      <p class="lead">Propuesta de arquitectura para revisar juntos antes de pasar a wireframes. Se basa en la web actual, vuestras respuestas al cuestionario del 30/10/2026, vuestros materiales de producto y nuestra propuesta. Todavía no es diseño.</p>
+      <div class="meta"><span>Borrador v0.2</span><span>10 nov 2026</span><span>Productos: Kumu, Olai, Hiki, Mailuna</span><span>Idiomas: español e inglés</span></div>
+      <div class="legend" aria-label="Leyenda de fuentes">
+        <span><b class="src C">C</b> Respondido en el cuestionario o por correo</span>
+        <span><b class="src M">M</b> Presentaciones y one-pager de Qwi</span>
+        <span><b class="src W">W</b> Web actual</span>
+        <span><b class="src P">P</b> Propuesta de Esamesa</span>
+        <span><b class="src V">V</b> Pendiente de confirmar</span>
+      </div>
+    </header>
+
+    <section id="sitemap">
+      <div class="sec-head"><div class="eyebrow">01</div><h2>Sitemap</h2>
+        <p class="lead">Cada caja lleva a su ficha. Borde azul: página nueva. Borde discontinuo: propuesta para una segunda fase.</p></div>
+      <div class="menu" aria-label="Menú principal propuesto">
+        <span class="k">Menú</span>
+        <span class="item">Soluciones ▾</span><span class="item">Cómo trabajamos</span><span class="item">Nosotros</span><span class="item">Contacto</span>
+        <span class="sp"></span><span class="item">ES / EN</span><span class="cta">Hablemos</span>
+      </div>
+      <div class="tree"><div class="tree-inner">
+        <a class="node root" href="#inicio"><div class="n">Inicio</div><div class="u">/ · /en</div><div class="st">Se rehace</div></a>
+        <div class="stem"></div>
+        <div class="cols">
+          <div class="col">
+            <div class="group">
+              <div class="gl"><span>Soluciones</span><span>desplegable, sin página propia</span></div>
+              <div class="grid2">
+                <a class="node" href="#kumu"><div class="n"><span class="dot kumu"></span>Kumu</div><div class="u">/kumu</div><div class="st">Estimación de estado</div></a>
+                <a class="node" href="#olai"><div class="n"><span class="dot olai"></span>Olai</div><div class="u">/olai</div><div class="st">Contingencias y maniobras</div></a>
+                <a class="node new" href="#hiki"><div class="n"><span class="dot hiki"></span>Hiki</div><div class="u">/hiki</div><div class="st">Previsión · sustituye a HUNA</div></a>
+                <a class="node" href="#mailuna"><div class="n"><span class="dot mailuna"></span>Mailuna</div><div class="u">/mailuna</div><div class="st">Inspección LiDAR</div></a>
+              </div>
+            </div>
+          </div>
+          <div class="col"><a class="node new" href="#como-trabajamos"><div class="n">Cómo trabajamos</div><div class="u">/como-trabajamos</div><div class="st">Nueva</div></a></div>
+          <div class="col"><a class="node" href="#nosotros"><div class="n">Nosotros</div><div class="u">/nosotros</div><div class="st">Se conserva y amplía</div></a></div>
+          <div class="col"><a class="node" href="#contacto"><div class="n">Contacto</div><div class="u">/contacto</div><div class="st">Formulario nuevo</div></a></div>
+          <div class="col"><a class="node phase2" href="#novedades"><div class="n">Novedades</div><div class="u">/novedades</div><div class="st">Fase 2 · por confirmar</div></a></div>
+        </div>
+        <div class="foot">
+          <span class="k">Pie</span>
+          <span class="pill">Los cuatro productos</span><span class="pill">Contacto directo</span><span class="pill">Política de privacidad</span><span class="pill">Cookies</span><span class="pill">Aviso legal</span><span class="pill">Derechos humanos</span><span class="pill">Política de gestión ISO</span>
+        </div>
+        <div class="foot">
+          <span class="k">Redirecciones</span>
+          <span class="pill"><span class="redir">/huna</span> → por confirmar</span>
+          <span class="pill"><span class="redir">/en/huna</span> → por confirmar</span>
+          <span class="k" style="margin-left:8px">EN</span>
+          <span class="pill">/en/kumu · /en/olai · /en/hiki · /en/mailuna · /en/how-we-work · /en/us · /en/contact</span>
+        </div>
+      </div></div>
+      <p class="note">Mantenemos las rutas actuales para no perder posicionamiento en buscadores ni romper enlaces ya compartidos.</p>
+    </section>
+
+    <section id="navegacion">
+      <div class="sec-head"><div class="eyebrow">02</div><h2>Cómo se mueve el visitante</h2>
+        <p class="lead">Criterios que aplican a toda la web. Responden a cómo compran vuestros clientes: un equipo técnico evalúa, Compras decide entre quienes superan el corte técnico y el proceso dura meses.</p></div>
+      <div class="ux">
+        <div class="ux-block">
+          <h4>Navegación</h4>
+          <ul class="rules">
+            <li><span><b>Cuatro entradas y un botón fijo.</b> Soluciones, Cómo trabajamos, Nosotros y Contacto, más «Hablemos» siempre visible, también en móvil.</span><span class="ss"><b class="src P">P</b></span></li>
+            <li><span><b>Nombre y función siempre juntos.</b> En el menú, las tarjetas y los enlaces: «Kumu · Estimación de estado». Nadie tiene que saber qué es Kumu para encontrarlo.</span><span class="ss"><b class="src M">M</b><b class="src P">P</b></span></li>
+            <li><span><b>El color ayuda, no identifica solo.</b> Cada producto tiene su color de acento, pero siempre va acompañado del nombre y la función, por accesibilidad.</span><span class="ss"><b class="src M">M</b><b class="src P">P</b></span></li>
+            <li><span><b>Cada página de producto se entiende sola.</b> Muchos visitantes llegarán directamente a un producto desde un buscador o un enlace. No necesitan pasar por Inicio.</span><span class="ss"><b class="src P">P</b></span></li>
+            <li><span><b>Índice fijo en las páginas de producto.</b> Reto · Cómo funciona · Qué entrega · Caso · Implantación. El evaluador técnico salta a lo que busca.</span><span class="ss"><b class="src P">P</b></span></li>
+            <li><span><b>Términos técnicos definidos en contexto.</b> PNG, MAE, P10/P90 o N-1 se explican al pasar el cursor o tocar, sin enviar a un glosario aparte.</span><span class="ss"><b class="src P">P</b></span></li>
+            <li><span><b>El cambio de idioma mantiene la página.</b> Desde /kumu se pasa a /en/kumu, no a la portada en inglés.</span><span class="ss"><b class="src C">C</b><b class="src P">P</b></span></li>
+          </ul>
+        </div>
+
+        <div class="ux-block">
+          <h4>Llamadas a la acción según la intención</h4>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>Si el visitante quiere…</th><th>Botón</th><th>Lleva a</th><th>Dónde aparece</th></tr></thead>
+            <tbody>
+              <tr><td>Entender un producto</td><td>Ver cómo funciona</td><td>Sección dentro de la página</td><td>Tarjetas de Inicio</td></tr>
+              <tr><td>Evaluarlo técnicamente</td><td>Descargar ficha técnica</td><td>PDF del producto <span class="pend">(acceso por confirmar)</span></td><td>Hero y cierre de producto</td></tr>
+              <tr><td>Verlo funcionando</td><td>Pedir una demo</td><td>Contacto, con motivo y producto ya elegidos</td><td>Hero y cierre de producto</td></tr>
+              <tr><td>Probarlo con sus datos</td><td>Proponer una prueba de concepto</td><td>Contacto, con motivo ya elegido</td><td>Cómo trabajamos, cierre de producto</td></tr>
+              <tr><td>Hablar sin un motivo concreto</td><td>Hablemos</td><td>Contacto</td><td>Menú, siempre visible</td></tr>
+            </tbody>
+          </table></div>
+          <p class="note">Las acciones salen de vuestras respuestas: formulario, demo, llamada y ficha técnica. La prueba de concepto, de vuestro one-pager. Ninguna página tiene más de dos botones principales.</p>
+        </div>
+
+        <div class="ux-block">
+          <h4>Recorridos principales</h4>
+          <div class="journeys">
+            <div class="jr">
+              <div><h4>Evalúa un producto</h4><div class="who">Planificación o Innovación, perfil técnico</div></div>
+              <ol><li>Llega a una página de producto</li><li>Cómo funciona y Qué entrega</li><li>Descarga la ficha técnica</li><li>Cómo trabajamos: integración</li><li>Pide una demo</li></ol>
+              <div class="why">Por eso cada producto se entiende sin Inicio y enlaza a Cómo trabajamos.</div>
+            </div>
+            <div class="jr">
+              <div><h4>Descubre Qwi</h4><div class="who">Responsable de red que no os conoce</div></div>
+              <ol><li>Llega a Inicio</li><li>Se reconoce en uno de los retos</li><li>Entra en el producto</li><li>Ve el caso</li><li>Hablemos</li></ol>
+              <div class="why">Por eso Inicio presenta retos antes que nombres de producto.</div>
+            </div>
+            <div class="jr">
+              <div><h4>Valida al proveedor</h4><div class="who">Compras o Dirección</div></div>
+              <ol><li>Llega a Inicio</li><li>Clientes y certificaciones</li><li>Nosotros: equipo y trayectoria</li><li>Cómo trabajamos: implantación y soporte</li><li>Contacto</li></ol>
+              <div class="why">Por eso la confianza tiene su bloque en Inicio y una página propia de método.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="paginas">
+      <div class="sec-head"><div class="eyebrow">03</div><h2>Contenidos por página</h2>
+        <p class="lead">Para cada página: propósito, mensaje principal, evidencia necesaria y acción esperada. Las secciones aparecen en el orden de lectura.</p></div>
+      <div id="pages" style="display:flex;flex-direction:column;gap:56px"></div>
+    </section>
+
+    <section id="decisiones">
+      <div class="sec-head"><div class="eyebrow">04</div><h2>Decisiones abiertas</h2>
+        <p class="lead">Lo que necesitamos resolver con vosotros para cerrar el sitemap. Ordenado por impacto.</p></div>
+      <ul class="qs" id="qs"></ul>
+    </section>
+  </main>
+</div>
+
+<script>
+const S=(...k)=>k.map(x=>`<b class="src ${x}">${x}</b>`).join("");
+const pend=t=>`<span class="pend">${t}</span>`;
+
+const pages=[
+{id:"inicio",name:"Inicio",urls:["/","/en"],status:"Se rehace",
+ brief:{p:"Dejar claro en segundos qué hace Qwi y llevar a cada visitante al producto que resuelve su problema.",m:"Software para redes eléctricas de distribución, con algoritmos e IA, hecho por ingenieros del sector.",e:"Clientes, certificaciones ISO y experiencia en el sector.",a:"Entrar en un producto o pedir una conversación."},
+ secs:[
+  ["Hero","Qué hace Qwi en una frase, a partir de «desarrollo de software para el sector eléctrico, especializado en algoritmos e IA». Dos botones: Ver soluciones y Hablemos. La animación acompaña al mensaje pero no lo sustituye: se entiende sin ella.",["C","M","P"]],
+  ["Retos y soluciones","Un solo bloque con cuatro tarjetas que unen reto y producto: Datos imperfectos → Kumu · Menos margen → Olai · Más variabilidad → Hiki · Activos expuestos → Mailuna. Cada tarjeta: reto, nombre, función, pregunta y enlace. Un selector permite verlas por equipo: Planificación → Kumu, Hiki · Acceso y capacidad → Olai, Kumu · Mantenimiento → Mailuna · Dirección → las cuatro.",["M","W","P"]],
+  ["Por qué Qwi","Tres diferencias: especialización en redes eléctricas; ingeniería eléctrica y software en el mismo equipo; soluciones implantadas en grandes distribuidoras. Cifras: "+pend("+20 o +25 años, +300 K km, +8 K medidas, por confirmar")+".",["C","W","V"]],
+  ["Clientes, partners y certificaciones","Frase de apoyo: soluciones implantadas en grandes distribuidoras de España y EE. UU. Logos sin vincularlos a ningún producto: Iberdrola, Avangrid, ScottishPower, elewit, EPRI e i-DE Innovation Hub. Enel y Naturgy, cuando sea posible. Partners de drones para Mailuna, cuando se cierren. Sellos ISO 9001, 14001 y 27001. "+pend("Permiso de cada cliente para la web y testimonios, por confirmar")+".",["C","M","V"]],
+  ["Cómo trabajamos","Tres ideas con enlace a la página: funciona junto a tus sistemas · se instala en tu infraestructura · pruébalo antes con tus datos.",["C","M"]],
+  ["Cierre","Hablemos de ingeniería. Botón a Contacto y datos directos: email, teléfono y LinkedIn.",["W"]]
+ ]},
+{id:"kumu",name:"Kumu",dot:"kumu",tag:"Estimación de estado",urls:["/kumu","/en/kumu"],status:"Se rehace",
+ brief:{p:"Explicar a Planificación qué aporta un estado de red fiable y dar rigor al evaluador técnico.",m:"¿Cuál es el estado real de tu red? Kumu lo estima aunque falten medidas o haya errores.",e:"Pantallas del dashboard y el unifilar, caso anonimizado, formatos de exportación.",a:"Pedir una demo o descargar la ficha técnica."},
+ secs:[
+  ["Hero","Kumu · Estimar · ¿Cuál es el estado real de la red? Estado real de la red en baja, media, alta y muy alta tensión, presente y pasado. Debajo, tres datos clave: qué necesita, qué entrega y para quién. Botones: Pedir una demo · Descargar ficha técnica.",["C","M","P"]],
+  ["El reto","Medidas incompletas, erróneas o no simultáneas, y zonas sin visibilidad. Sin un modelo fiable es difícil planificar y atender solicitudes de conexión.",["C","W","M"]],
+  ["Cómo funciona","Diagrama en tres pasos: medidas disponibles y modelo eléctrico → algoritmos que calculan, corrigen y verifican → estado estimado del modelo completo. "+pend("Datos de entrada concretos, por confirmar")+".",["C","P","V"]],
+  ["Qué entrega","Pantallas con notas que señalan qué mirar: dashboard por nivel de tensión, error por subred con semáforo de calidad, unifilar esquemático y geográfico, informes en 5 categorías. Exporta a PSS/E, CIM, KML, PSE y CYME.",["M","P"]],
+  ["Para quién y qué decide","Planificación, y Acceso y capacidad. Planificar sobre un modelo fiable y trazable medida a medida.",["C","M"]],
+  ["Caso","Implantado en una gran distribuidora, contado de forma anonimizada. "+pend("Resultados del caso, por confirmar")+".",["C","V"]],
+  ["Implantación","Resumen en una línea: se instala en la infraestructura del cliente, funciona en paralelo al ADMS y Qwi lo mantiene. Enlace a Cómo trabajamos.",["C","W"]],
+  ["Se conecta con","Kumu es la pieza principal y puede conectar con los demás productos, aunque no es obligatoria. Enlaces a Olai e Hiki.",["C"]],
+  ["Cierre","Pedir una demo · Descargar ficha técnica. Debajo, acceso a los otros tres productos.",["C","P"]]
+ ],
+ note:"Los cuatro productos comparten esta estructura y el mismo índice fijo. Así se comparan fácilmente y cada página puede crecer sin cambiar de plantilla."},
+{id:"olai",name:"Olai",dot:"olai",tag:"Contingencias y maniobras",urls:["/olai","/en/olai"],status:"Se rehace",
+ brief:{p:"Mostrar cómo se decide la maniobra de reposición y cuánta capacidad queda en la red.",m:"¿Qué pasa si falla un transformador? Olai simula el fallo y propone la mejor secuencia de maniobras.",e:"Maniobras sobre unifilar y mapa, tabla de resultados, mapa de capacidad, caso anonimizado.",a:"Pedir una demo o descargar la ficha técnica."},
+ secs:[
+  ["Hero","Olai · Simular · ¿Qué pasa si falla un transformador? Gemelo digital para contingencias N-1 / N-M. Tres datos clave y los dos botones.",["C","M","P"]],
+  ["El reto","Ante un fallo hay que saber qué zonas quedan afectadas, cómo reponerlas sin sobrecargas ni subtensiones y con el mínimo impacto en clientes, y cuánta capacidad queda.",["W","M"]],
+  ["Cómo funciona","Simula el fallo de uno o varios elementos sobre todo el modelo en una ejecución y calcula la secuencia de aperturas y cierres para reponer el servicio.",["C","M"]],
+  ["Qué entrega","Pantallas con notas: resultados por transformador, maniobras sobre unifilar y mapa, capacidad adicional en barras de cabecera, mapas de capacidad para estudios de acceso. "+pend("Definición de PNG, PNGD y bolsa, por confirmar")+".",["M","V"]],
+  ["Para quién y qué decide","Acceso y capacidad, y Planificación. Elegir la maniobra de reposición y responder a estudios de acceso con datos de capacidad.",["M"]],
+  ["Caso","Implantado en una gran distribuidora, contado de forma anonimizada, con capturas, mapas e informes anonimizados.",["C"]],
+  ["Implantación","Resumen en una línea y enlace a Cómo trabajamos.",["C","W"]],
+  ["Se conecta con","Kumu, como modelo de red de partida. "+pend("Relación técnica exacta, por confirmar")+".",["C","V"]],
+  ["Cierre","Pedir una demo · Descargar ficha técnica · Otros productos.",["C","P"]]
+ ]},
+{id:"hiki",name:"Hiki",dot:"hiki",tag:"Previsión de demanda y generación",urls:["/hiki","/en/hiki"],status:"Nueva · sustituye a HUNA",isNew:true,
+ brief:{p:"Presentar Hiki, nuevo en la web, con el mismo nivel de detalle que el resto.",m:"¿Cómo estará la red en 24 h, 7 o 10 días? Hiki anticipa demanda, generación y estado de la red.",e:"Curvas de previsión con histórico y estado de red previsto. "+pend("Caso por confirmar")+".",a:"Pedir una demo o descargar la ficha técnica."},
+ secs:[
+  ["Hero","Hiki · Anticipar · ¿Cómo estará la red en 24 h, 7 o 10 días? Tres datos clave y los dos botones.",["C","M","P"]],
+  ["El reto","La generación renovable y las nuevas demandas cambian los flujos. Planificar solo con históricos ya no basta.",["M"]],
+  ["Cómo funciona","Previsión de curvas P/Q con bandas P10/P90 → flujo de cargas hora a hora → estado de red previsto. "+pend("Ámbito: puntos de MAT o cualquier punto de la red, por confirmar")+".",["M","V"]],
+  ["Qué entrega","Pantallas con notas: curvas P y Q con histórico real, modelo aplicado visible en cada curva, sobrecargas y tensiones fuera de banda previstas, exportación del caso para estudios.",["M","P"]],
+  ["Para quién y qué decide","Planificación. Anticipar sobrecargas y preparar la red con antelación.",["M"]],
+  ["Caso",pend("Pendiente"),["V"]],
+  ["Implantación",pend("Suponemos el mismo modelo que en el resto de productos, por confirmar")+".",["V"]],
+  ["Se conecta con","Kumu. "+pend("Si usa la salida de Kumu, por confirmar")+".",["M","V"]],
+  ["Cierre","Pedir una demo · Descargar ficha técnica · Otros productos.",["P"]]
+ ]},
+{id:"mailuna",name:"Mailuna",dot:"mailuna",tag:"Inspección LiDAR",urls:["/mailuna","/en/mailuna"],status:"Se rehace",
+ brief:{p:"Mostrar a Mantenimiento cómo se pasa del vuelo a la orden de trabajo.",m:"¿En qué estado están tus líneas? Mailuna procesa el vuelo LiDAR y prioriza dónde actuar.",e:"Nube de puntos clasificada, avisos por tipo, mapa de línea, caso anonimizado.",a:"Pedir una demo o descargar la ficha técnica."},
+ secs:[
+  ["Hero","Mailuna · Inspeccionar · ¿En qué estado están las líneas? Del vuelo LiDAR a la orden de trabajo. Tres datos clave y los dos botones.",["C","M","P"]],
+  ["El reto","Mantener kilómetros de línea exige saber dónde actuar: vegetación, deterioro, avifauna, posición de los apoyos, inventario desactualizado.",["C","W"]],
+  ["Cómo funciona","Vuelo con dron → procesado de la nube de puntos, clasificación por apoyo y cálculo de distancias → avisos priorizados: actuar o vigilar.",["C","M"]],
+  ["Qué entrega","Pantallas con notas: nube de puntos 3D clasificada, más de 6 tipos de aviso, mapa de línea, planificación de vuelos, órdenes de poda e inspección creadas desde el aviso, informes.",["M","P"]],
+  ["Para quién y qué decide","Mantenimiento. Priorizar podas e inspecciones por tramo.",["M"]],
+  ["Caso","Qwi es una de las dos empresas certificadas por una gran distribuidora para este servicio. "+pend("Si puede publicarse así, por confirmar")+".",["C","V"]],
+  ["Implantación","Resumen en una línea y enlace a Cómo trabajamos. Partners de drones, cuando se cierren.",["C","V"]],
+  ["Cierre","Pedir una demo · Descargar ficha técnica · Otros productos.",["C","P"]]
+ ]},
+{id:"como-trabajamos",name:"Cómo trabajamos",urls:["/como-trabajamos","/en/how-we-work"],status:"Nueva",isNew:true,
+ brief:{p:"Resolver en un solo sitio las dudas de integración e implantación, las más frecuentes en vuestras reuniones.",m:"Funciona junto a tus sistemas y te acompañamos después.",e:"Modelo de implantación, pasos de la prueba de concepto, formatos de exportación, ISO 27001.",a:"Proponer una prueba de concepto o un desarrollo a medida."},
+ secs:[
+  ["¿Hay que integrarlo con mis sistemas?","Funciona en paralelo al ADMS, sin integrarse con él. Se adapta al modelo de red de cada compañía. Exporta a CIM y KML.",["W","M"]],
+  ["¿Cómo se implanta y quién lo mantiene?","Software a medida instalado en la infraestructura del cliente, con mantenimiento correctivo y evolutivo del equipo de Qwi.",["C"]],
+  ["¿Puedo probarlo antes?","Prueba de concepto en cuatro pasos: elegir zona, reto y criterios de éxito → cargar un caso real en un entorno de pruebas → acompañamiento del equipo → revisión de resultados y decisión. Botón: Proponer una prueba de concepto.",["M"]],
+  ["¿Y si mi reto no encaja con un producto?","Desarrollo a medida.",["C","M"]],
+  ["¿Dais soporte a sistemas que ya tenemos?","Diagnóstico, corrección, evolución y continuidad de aplicaciones existentes.",["C","M"]],
+  ["¿Cómo se protege la información?","ISO 27001. "+pend("Vigencia y uso de sellos, por confirmar")+".",["M","V"]],
+  ["Preguntas técnicas frecuentes",pend("Pendiente"),["V"]],
+  ["Cierre","Proponer una prueba de concepto · Hablemos.",["M","P"]]
+ ],
+ note:"Los títulos son las preguntas que hace el cliente, en el orden en que suelen surgir. Proponemos una sola página; si la prueba de concepto, el desarrollo a medida y el soporte necesitaran páginas propias, lo valoraríamos aparte."},
+{id:"nosotros",name:"Nosotros",urls:["/nosotros","/en/us"],status:"Se conserva y amplía",
+ brief:{p:"Generar confianza en la empresa durante una venta larga.",m:"Ingeniería eléctrica y desarrollo de software en el mismo equipo.",e:"Equipo con nombre y cargo, certificaciones, clientes, I+D y partners.",a:"Hablemos o seguir en LinkedIn."},
+ secs:[
+  ["Introducción","Ingeniería eléctrica y software, experiencia en el sector. "+pend("+20 o +25 años, por confirmar")+".",["W","M","V"]],
+  ["Desde dentro del sistema","Soluciones nacidas del trabajo en redes de alta y media tensión. Se conserva.",["W"]],
+  ["Nuestro enfoque","La tecnología al servicio del criterio técnico. Se conserva, más breve.",["W"]],
+  ["Equipo","Jesús Besada (CEO), Gustavo Plaza (COO), Eduardo González (CBO), Carlos Fernández (PM/PO).",["W"]],
+  ["Clientes, I+D y partners","Logos, proyectos de I+D y partners tecnológicos. "+pend("Formato, permisos y proyectos de I+D, por confirmar")+".",["C","V"]],
+  ["Certificaciones","ISO 9001, 14001 y 27001, con enlace a la política de gestión.",["W","M"]],
+  ["Origen de los nombres","Kumu, raíz o base; Olai, hacia la vida; Hiki, el tiempo que viene; Mailuna, desde arriba. Opcional.",["C","P"]],
+  ["Cierre","Hablemos.",["P"]]
+ ]},
+{id:"contacto",name:"Contacto",urls:["/contacto","/en/contact"],status:"Formulario nuevo",
+ brief:{p:"Facilitar el primer contacto con el menor esfuerzo posible.",m:"Hablemos de ingeniería.",e:"—",a:"Enviar el formulario o escribir directamente."},
+ secs:[
+  ["Formulario","Obligatorios: nombre, empresa, email, motivo y mensaje. Opcionales: teléfono y producto de interés. Consentimiento de privacidad.",["W","P"]],
+  ["Motivo","Solicitar demo · Agendar llamada · Ficha técnica · Prueba de concepto · Desarrollo a medida · Otro. Llega ya elegido desde el botón que se pulsó, igual que el producto.",["C","M","P"]],
+  ["Destino","Las solicitudes llegan a un email.",["C"]],
+  ["Confirmación","Mensaje en la misma página que confirma que la solicitud se ha enviado.",["P"]],
+  ["Contacto directo","Email, teléfono, dirección en Alcorcón y LinkedIn, visibles junto al formulario. "+pend("Unificar email: info@qwi.es o info@qwi-ti.com")+".",["W","V"]]
+ ]},
+{id:"novedades",name:"Novedades",urls:["/novedades","/en/news"],status:"Fase 2 · por confirmar",phase2:true,
+ brief:{p:"Publicar nuevos algoritmos, proyectos e I+D.",m:"—",e:"—",a:"Leer y contactar."},
+ secs:[
+  ["Listado","Entradas ordenadas por fecha, filtrables por producto.",["P"]],
+  ["Entrada","Título, fecha, producto relacionado, texto, imagen y botón de contacto.",["P"]]
+ ]}
+];
+
+const qs=[
+ ["Hiki: necesitamos la misma información que en el resto de productos: datos de entrada, implantación y caso.","Página de Hiki"],
+ ["Logos de clientes: ¿cuáles podemos publicar en la web y dónde?","Inicio y Nosotros"],
+ ["Fichas técnicas: proponemos descarga libre, sin formulario, porque la web prioriza dar visibilidad. ¿Os encaja?","Botones de producto"],
+ ["¿En qué consiste la demo: una reunión, un vídeo o un acceso de prueba?","Botones de producto"],
+ ["HUNA sale de la web, pero su página actual (qwi-ti.com/huna) sigue apareciendo en Google y puede estar enlazada en presentaciones o correos antiguos. Para que nadie llegue a una página de error, esa dirección llevará automáticamente a otra página de la nueva web. Proponemos Inicio. ¿Seguís ofreciendo HUNA de alguna forma, por ejemplo como desarrollo a medida? En ese caso la llevaríamos a Cómo trabajamos.","Redirecciones"],
+ ["¿Queréis una sección de Novedades, tipo blog, en la que podáis ir añadiendo entradas vosotros mismos: nuevos algoritmos, proyectos, I+D?","Novedades"],
+ ["Cifras: +20 o +25 años, +300 K km, +8 K medidas. ¿Cuáles mantenemos?","Inicio y Nosotros"],
+ ["Grafía de los nombres: Kumu o KUMU.","Menú y textos"]
+];
+
+const toc=document.getElementById("toc");
+toc.innerHTML=`<div class="lbl">Documento</div><a href="#sitemap">Sitemap</a><a href="#navegacion">Cómo se mueve el visitante</a><a href="#decisiones">Decisiones abiertas</a><div class="lbl">Páginas</div>`+
+ pages.map(p=>`<a href="#${p.id}">${p.dot?`<span class="dot ${p.dot}"></span>`:`<span class="dot"></span>`}${p.name}</a>`).join("");
+
+document.getElementById("pages").innerHTML=pages.map(p=>`
+<article class="page" id="${p.id}">
+  <div class="page-top">
+    <div class="t">${p.dot?`<span class="dot ${p.dot}"></span>`:""}<h3>${p.name}${p.tag?` <span style="font-weight:400;color:var(--muted)">· ${p.tag}</span>`:""}</h3></div>
+    <div class="urls"><span>${p.urls[0]}</span><span>${p.urls[1]}</span><span class="status${p.isNew?" new":""}">${p.status}</span></div>
+  </div>
+  <dl class="brief">
+    <div><dt>Propósito</dt><dd>${p.brief.p}</dd></div>
+    <div><dt>Mensaje</dt><dd>${p.brief.m}</dd></div>
+    <div><dt>Evidencia</dt><dd>${p.brief.e}</dd></div>
+    <div><dt>Acción</dt><dd>${p.brief.a}</dd></div>
+  </dl>
+  <ol class="secs">${p.secs.map(s=>`<li><span class="sn">${s[0]}</span><span class="sd">${s[1]}</span><span class="ss">${S(...s[2])}</span></li>`).join("")}</ol>
+  ${p.note?`<p class="tpl">${p.note}</p>`:""}
+</article>`).join("");
+
+document.getElementById("qs").innerHTML=qs.map(q=>`<li><span>${q[0]}</span><span class="impact">${q[1]}</span></li>`).join("");
+</script>
+
+</body></html>
