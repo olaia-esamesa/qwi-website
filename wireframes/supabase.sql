@@ -77,3 +77,8 @@ revoke update, delete on public.respuestas from anon;
 do $$ begin
   alter publication supabase_realtime add table public.respuestas;
 exception when duplicate_object then null; end $$;
+
+-- Permisos de la API para la web (los proyectos nuevos de Supabase no los dan por defecto).
+grant usage on schema public to anon;
+grant select, insert on public.propuestas, public.feedback, public.respuestas to anon;
+grant update (estado) on public.propuestas, public.feedback to anon;
