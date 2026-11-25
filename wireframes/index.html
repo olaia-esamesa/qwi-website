@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wireframes web Qwi</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: wireframe en escala de grises como en Figma (bandas blancas y grises, cajas de imagen grises con etiqueta mono), con una barra de revisión oscura fija arriba y un panel lateral para proponer cambios de texto. Un solo aspecto claro, deliberado. */
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF; --band:#F3F3F3; --ph:#B9B9B9; --ph-2:#E6E6E6; --line:#E1E1E1; --line-2:#C9C9C9;
+  --ink:#1B1B1B; --muted:#6A6A6A; --faint:#9A9A9A;
+  --bar:#161616; --bar-ink:#F2F2F2; --bar-muted:#A8A8A8;
+  --hl:#FFE27A; --hl-soft:#FFF6D1; --ok:#2F7D4F; --no:#A1402A;
+  --kumu:#3FAE93; --olai:#D79A1E; --hiki:#E06A35; --mailuna:#86B330;
+  --display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:72px}
+body{background:var(--paper);color:var(--ink);font-family:var(--display);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bar)}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.in{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Barra de revisión */
+.rbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:55;background:var(--bar);color:var(--bar-ink);font-size:13px}
+.rbar .in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding-block:9px}
+.rbar .brand{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--bar-muted)}
+.rbar .brand b{color:var(--bar-ink);font-weight:700}
+.rbar select{background:#2A2A2A;color:var(--bar-ink);border:1px solid #3A3A3A;border-radius:4px;padding:5px 8px;font:inherit;max-width:100%}
+.rbar .sp{flex:1}
+.rbar #pageSel{width:220px;max-width:100%}
+.sw{display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;white-space:nowrap}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw .tr{width:30px;height:17px;border-radius:9px;background:#4A4A4A;position:relative;flex:none;transition:background .15s}
+.sw .tr::after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw input:checked+.tr{background:#E8C64A}
+.sw input:checked+.tr::after{transform:translateX(13px)}
+.sw input:focus-visible+.tr{outline:2px solid #fff;outline-offset:2px}
+.rbtn{background:var(--bar-ink);color:var(--bar);border:0;border-radius:4px;padding:6px 11px;font-weight:600;cursor:pointer;white-space:nowrap}
+.rbtn .n{font-family:var(--mono);font-weight:700;margin-left:4px}
+.hint{background:var(--hl-soft);border-bottom:1px solid #EADBA0;font-size:13.5px}
+.hint .in{display:flex;gap:12px;align-items:center;padding-block:9px}
+.hint p{margin:0;flex:1;min-width:0}
+.hint button{background:none;border:0;text-decoration:underline;cursor:pointer;white-space:nowrap}
+
+/* Cabecera de la web (wireframe) */
+.site-h{border-bottom:1px solid var(--line);background:var(--paper)}
+.site-h>.in:first-child{display:flex;align-items:center;gap:20px;height:64px}
+.logo{font-family:var(--mono);font-weight:700;font-size:13px;background:var(--ph-2);padding:6px 10px;border-radius:3px;text-decoration:none}
+.nav{display:flex;gap:4px;align-items:center;margin:0 auto}
+.nav>.it{position:relative}
+.nav a.top,.nav button.top{display:block;padding:8px 10px;font-size:13.5px;font-weight:500;text-decoration:none;background:none;border:0;cursor:pointer;border-radius:3px}
+.nav a.top:hover,.nav button.top:hover,.nav a.top.on{background:var(--band)}
+.dd{position:absolute;top:100%;left:0;background:var(--paper);border:1px solid var(--line-2);border-radius:4px;padding:8px;min-width:300px;display:none;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.nav .it:hover .dd,.nav .it:focus-within .dd{display:block}
+.dd .intro{font-size:12.5px;color:var(--muted);padding:6px 8px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.dd a{display:flex;gap:10px;align-items:baseline;padding:8px;text-decoration:none;border-radius:3px;font-size:13.5px}
+.dd a:hover{background:var(--band)}
+.dd a small{color:var(--muted);font-size:12px}
+.lang{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.menu-btn{display:none;background:none;border:1px solid var(--line-2);border-radius:3px;padding:6px 10px;cursor:pointer;font-size:13px}
+.site-h .mnav{display:none;height:auto;border-top:1px solid var(--line);padding-block:8px}
+.mnav a{display:block;padding:8px 0;text-decoration:none;font-size:14px}
+.mnav .g{font-family:var(--mono);font-size:10.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;margin-top:8px}
+@media (max-width:900px){.nav,.site-h .lang{display:none}.menu-btn{display:block;margin-left:auto}.site-h .btn{display:none}.site-h .mnav.open{display:block}}
+
+/* Tipografía y componentes */
+.sec{padding-block:72px}
+.sec.band{background:var(--band)}
+.sec.tight{padding-block:40px}
+.note{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-bottom:18px;display:block}
+.eb{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:12px}
+.h1{font-size:clamp(34px,5vw,56px);line-height:1.04;font-weight:600;letter-spacing:-.02em;margin:0 0 18px;text-wrap:balance}
+.h2{font-size:clamp(24px,3vw,34px);line-height:1.12;font-weight:600;letter-spacing:-.01em;margin:0 0 14px;text-wrap:balance}
+.h3{font-size:19px;line-height:1.25;font-weight:600;margin:0 0 6px;text-wrap:balance}
+.h4{font-size:15px;font-weight:600;margin:0 0 4px}
+.lead{font-size:17px;color:var(--muted);max-width:56ch;margin:0 0 24px}
+.p{color:var(--muted);margin:0;max-width:62ch}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 16px;border-radius:3px;font-size:13.5px;font-weight:600;text-decoration:none;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+.btn.o{background:transparent;color:var(--ink)}
+.lnk{display:inline-flex;gap:4px;font-size:13.5px;font-weight:600;text-decoration:none}
+.lnk::after{content:"→"}
+.lnk.dl::after{content:"↓"}
+.ph{background:var(--ph);border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#F4F4F4;font-family:var(--mono);font-size:11px;text-align:center;padding:16px;aspect-ratio:16/10;max-width:100%;width:100%}
+.ph.light{background:var(--ph-2);color:var(--muted)}
+.ph.wide{aspect-ratio:21/8}
+.ph svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.6}
+.box{border:1px solid var(--line-2);background:var(--paper);border-radius:3px;padding:16px}
+.dot{width:9px;height:9px;border-radius:2px;display:inline-block;flex:none;background:var(--ink)}
+.dot.kumu{background:var(--kumu)}.dot.olai{background:var(--olai)}.dot.hiki{background:var(--hiki)}.dot.mailuna{background:var(--mailuna)}
+.tag{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted)}
+.logo-ph{background:var(--ph-2);border-radius:2px;font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;align-items:center;justify-content:center;height:44px;padding:0 12px;min-width:90px}
+.logo-ph.strong{background:#D4D4D4;color:var(--ink);font-weight:700}
+.chip{font-family:var(--mono);font-size:11px;border:1px solid var(--line-2);border-radius:2px;padding:6px 10px;background:var(--paper)}
+
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;align-items:center}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.g2{grid-template-columns:minmax(0,1fr);gap:28px}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.g4{grid-template-columns:minmax(0,1fr)}}
+.g2>*,.g3>*,.g4>*{min-width:0}
+
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:36px}
+@media (max-width:700px){.facts{grid-template-columns:minmax(0,1fr)}}
+.facts .box .eb{margin-bottom:6px}
+.hero-logos{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.hero-logos .lbl{font-size:13px;font-weight:600;margin-right:8px}
+
+.situ{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.situ{grid-template-columns:minmax(0,1fr)}}
+.situ .card{border:1px solid var(--line-2);border-radius:4px;padding:26px 24px;display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 16px;align-items:center;min-height:120px;background:var(--paper)}
+.situ .card svg{width:30px;height:30px;stroke:var(--ink);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.situ .card .txt{font-size:16px;color:#4A4A4A}
+.situ .card .sol{grid-column:2;font-size:12.5px;margin-top:6px;display:inline-flex;gap:7px;align-items:center;text-decoration:none;font-weight:600}
+.situ .card.other{background:var(--band);border-style:dashed;grid-column:1/-1;grid-template-columns:minmax(0,1fr) auto}
+.situ .card.other .btns{justify-content:flex-end}
+
+.rows{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:40px minmax(0,1fr) minmax(0,420px);gap:24px;padding:32px 0;border-top:1px solid var(--line);align-items:center}
+.row .num{font-family:var(--mono);font-size:11px;color:var(--faint)}
+@media (max-width:860px){.row{grid-template-columns:minmax(0,1fr)}.row .num{display:none}}
+.links{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px}
+
+.steps{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:28px;counter-reset:st}
+.steps .box{counter-increment:st;position:relative}
+.steps .box::before{content:counter(st,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--faint);display:block;margin-bottom:8px}
+.steps .box:not(:last-child)::after{content:"→";position:absolute;right:-21px;top:50%;transform:translateY(-50%);color:var(--muted)}
+@media (max-width:860px){.steps{grid-auto-flow:row}.steps .box:not(:last-child)::after{content:"↓";right:auto;left:20px;top:auto;bottom:-24px;transform:none}}
+
+.quote{font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.2;margin:0 0 20px;letter-spacing:-.01em}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:20px 0}
+@media (max-width:600px){.kv{grid-template-columns:minmax(0,1fr)}}
+.kv .k{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);display:block;margin-bottom:4px}
+.metric{font-size:34px;font-weight:600;line-height:1}
+.big{font-size:52px;font-weight:600;line-height:1;letter-spacing:-.02em}
+.stack{display:flex;flex-direction:column;gap:22px}
+
+.subnav{border-bottom:1px solid var(--line);background:var(--paper)}
+.subnav .in{display:flex;align-items:center;gap:6px 20px;flex-wrap:wrap;padding-block:12px;font-size:13px;color:var(--muted)}
+.subnav b{color:var(--ink);display:inline-flex;gap:7px;align-items:center}
+.subnav span:nth-child(2){color:var(--ink);text-decoration:underline}
+.subnav .sp{flex:1}
+
+.qa{display:flex;flex-direction:column}
+.qa .q{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px 48px;padding:28px 0;border-top:1px solid var(--line)}
+@media (max-width:760px){.qa .q{grid-template-columns:minmax(0,1fr)}}
+
+.team .ph{aspect-ratio:4/5}
+.form{display:flex;flex-direction:column;gap:12px}
+.field{display:flex;flex-direction:column;gap:5px;font-size:12.5px;font-weight:600}
+.field .in-ph{border:1px solid var(--line-2);border-radius:3px;height:40px;background:var(--paper);font-weight:400;color:var(--faint);display:flex;align-items:center;padding:0 10px;font-size:13px}
+.field .in-ph.ta{height:96px;align-items:flex-start;padding-top:10px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:12px}
+.cal span{aspect-ratio:1;background:var(--paper);border:1px solid var(--line);border-radius:2px;font-family:var(--mono);font-size:10px;color:var(--faint);display:flex;align-items:center;justify-content:center}
+.cal span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.site-f{background:var(--band);border-top:1px solid var(--line);padding-block:48px 32px;font-size:13px}
+.site-f .cols{display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:24px}
+@media (max-width:860px){.site-f .cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.site-f h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0 0 10px;font-weight:400}
+.site-f a,.site-f .cols h5~span{display:block;text-decoration:none;padding:3px 0}
+.site-f .iso{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+
+.nombre{font-size:13.5px;color:var(--muted);margin:-4px 0 16px;max-width:52ch;font-style:italic}
+/* Landing de servicios */
+.overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.overview{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.overview{grid-template-columns:minmax(0,1fr)}}
+.ov{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--ink);border:1px solid var(--line-2);border-radius:3px;padding:20px;background:var(--paper);min-width:0;transition:border-color .12s}
+.ov:hover{border-color:var(--ink)}
+.ov .more{margin-top:auto;padding-top:8px;font-size:13.5px;font-weight:600}
+.ov .more::after{content:" ↓"}
+.anchors{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--rbar,44px));z-index:40;background:var(--paper);border-block:1px solid var(--line)}
+.anchors .in{display:flex;gap:4px 6px;align-items:center;padding-block:10px;overflow-x:auto;scrollbar-width:none}
+.anchors .lbl2{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-right:8px;white-space:nowrap}
+.anchors a{white-space:nowrap;text-decoration:none;font-size:13px;color:var(--muted);padding:5px 10px;border-radius:999px}
+.anchors a:hover{color:var(--ink);background:var(--band)}
+.anchors a.on{background:var(--ink);color:#fff}
+
+
+/* v0.7 · mejoras del benchmark */
+.fig{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0;width:100%}
+.fig figcaption{font-family:var(--mono);font-size:10px;color:var(--faint)}
+.p.sm{font-size:13px;margin-top:6px}
+.h2.sm{font-size:clamp(20px,2.2vw,26px)}
+.ft{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:10px 12px;margin:4px 0 20px;align-items:start}
+.ft .k{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint)}
+.ft .de{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line-2)}
+.ft .a{font-weight:600}
+.ft .ar{color:var(--muted)}
+.ft>.de,.ft>.a{border-top:1px solid var(--line);padding-top:10px}
+.ft>.ar{padding-top:10px}
+.panels{display:flex;flex-direction:column;margin-top:20px}
+.panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:48px;align-items:center;padding:36px 0;border-top:1px solid var(--line)}
+.panel.rev>:first-child{order:2}
+@media (max-width:860px){.panel{grid-template-columns:minmax(0,1fr);gap:20px}.panel.rev>:first-child{order:0}}
+.steps.wimg .box{display:flex;flex-direction:column;gap:6px}
+.steps.wimg .ph{aspect-ratio:4/3;margin-bottom:8px}
+.impl{display:flex;flex-direction:column;gap:4px}
+.p.pv{color:var(--no)}
+.layers{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1.3fr);gap:16px;margin-top:28px;align-items:stretch}
+.layers .plus{display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--muted)}
+.layer{display:flex;flex-direction:column;gap:10px;padding:24px}
+.layer .sols{display:flex;flex-direction:column;gap:8px;margin:6px 0 4px}
+.layer .sols a{text-decoration:none;color:var(--ink);font-size:14px}
+.layer .svc{display:grid;gap:16px}
+.layer .svc>div{border-top:1px solid var(--line);padding-top:12px}
+@media (max-width:860px){.layers{grid-template-columns:minmax(0,1fr)}.layers .plus{height:20px}}
+.paths .path{display:flex;flex-direction:column;gap:6px;padding:22px}
+.person{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;align-items:start}
+.person .ph.port{aspect-ratio:4/5;padding:8px}
+.casecard{display:flex;flex-direction:column;gap:10px}
+.casecard .ph{aspect-ratio:auto;height:72px;flex-direction:row}
+.kv.kv2{grid-template-columns:repeat(2,minmax(0,1fr));margin:6px 0}
+.tbl{overflow-x:auto;margin-top:24px}
+.tbl table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+.tbl th{text-align:left;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:400;padding:10px 12px;border-bottom:1px solid var(--line-2)}
+.tbl td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.facts{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+
+/* Textos revisables */
+body.review .t{cursor:pointer;border-radius:2px;outline:1px dashed transparent;outline-offset:3px;transition:outline-color .12s,background .12s}
+body.review .t:hover{outline-color:#C79A00;background:var(--hl-soft)}
+body.review .t:focus-visible{outline:2px solid #C79A00}
+body.review .t.sel{background:var(--hl);outline:2px solid #C79A00}
+.t[data-n]{position:relative}
+body.review .t[data-n]::after{content:attr(data-n);position:absolute;top:-10px;right:-14px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--hl);border:1px solid #C79A00;color:var(--ink);font-family:var(--mono);font-size:10px;font-weight:700;line-height:16px;text-align:center;pointer-events:none}
+.t.swapped{background:var(--hl-soft);box-shadow:inset 0 -2px 0 #E0B400}
+.btn .t.swapped{background:transparent;box-shadow:none;text-decoration:underline wavy #E0B400}
+
+/* Panel lateral */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--paper);border-left:1px solid var(--line-2);box-shadow:-12px 0 32px rgba(0,0,0,.12);z-index:70;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.drawer header{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.drawer header h2{font-size:15px;margin:0;flex:1}
+.x{background:none;border:1px solid var(--line-2);border-radius:3px;width:30px;height:30px;cursor:pointer;font-size:16px;line-height:1}
+.dbody{overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:18px;flex:1}
+.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:6px}
+.orig{background:var(--band);border-radius:3px;padding:10px 12px;font-size:14px;white-space:pre-wrap}
+.where{font-size:12px;color:var(--muted)}
+textarea,input.txt{width:100%;font:inherit;font-size:14px;border:1px solid var(--line-2);border-radius:3px;padding:9px 10px;background:var(--paper);color:var(--ink);resize:vertical}
+textarea{min-height:110px}
+textarea:focus,input.txt:focus{outline:2px solid var(--ink);outline-offset:0}
+.dactions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.msg{font-size:13px;color:var(--muted)}
+.msg.ok{color:var(--ok)}
+.msg.err{color:var(--no)}
+.props{display:flex;flex-direction:column;gap:10px}
+.prop{border:1px solid var(--line);border-radius:3px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.prop .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.prop .meta img{width:18px;height:18px;border-radius:50%}
+.prop .txt{white-space:pre-wrap}
+.prop .nt{font-size:12.5px;color:var(--muted);white-space:pre-wrap}
+.prop .acts{display:flex;gap:6px;flex-wrap:wrap}
+.prop .acts button,.mini{background:var(--paper);border:1px solid var(--line-2);border-radius:3px;padding:3px 8px;font-size:12px;cursor:pointer}
+.st{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;border-radius:2px;padding:1px 6px;border:1px solid var(--line-2)}
+.st.aceptada{color:var(--ok);border-color:var(--ok)}
+.st.descartada{color:var(--no);border-color:var(--no)}
+.prop.descartada .txt{text-decoration:line-through;color:var(--muted)}
+.empty{font-size:13.5px;color:var(--muted)}
+.grp{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-top:6px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{background:var(--paper);border:1px solid var(--line-2);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.18);z-index:65}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.h1{white-space:pre-line}
+.rbtn.g{background:transparent;color:var(--bar-ink);border:1px solid #4A4A4A}
+.map{aspect-ratio:3/2;background:repeating-linear-gradient(0deg,transparent 0 23px,#DADADA 23px 24px),repeating-linear-gradient(90deg,transparent 0 23px,#DADADA 23px 24px),var(--ph-2);border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:16px}
+
+/* Feedback por sección */
+.secfb{display:none;float:right;margin:-6px 0 8px 12px;background:var(--paper);border:1px dashed #C79A00;color:#7A5E00;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.secfb:hover{background:var(--hl-soft)}
+.secfb .n{font-family:var(--mono);margin-left:4px}
+body.review .secfb{display:inline-flex;align-items:center;gap:4px}
+.sec{position:relative}
+body.review .sec.has-fb{box-shadow:inset 3px 0 0 var(--hl)}
+
+/* Pestañas y tipos en el panel */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:-4px 0 0}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:8px 10px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.types{display:flex;gap:6px;flex-wrap:wrap}
+.types label{cursor:pointer}
+.types input{position:absolute;opacity:0;width:1px;height:1px}
+.types span{display:inline-block;border:1px solid var(--line-2);border-radius:999px;padding:4px 11px;font-size:12.5px}
+.types input:checked+span{background:var(--ink);color:#fff;border-color:var(--ink)}
+.types input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
+.or{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.or button{background:none;border:0;padding:0;text-decoration:underline;cursor:pointer;font-size:12.5px;font-weight:600}
+.ty{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;background:var(--band);border-radius:2px;padding:1px 6px}
+
+/* Pantalla de bienvenida */
+.welcome{position:fixed;inset:0;z-index:90;background:var(--bar);color:var(--bar-ink);overflow-y:auto;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(32px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.welcome .wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:32px;padding-top:min(6vh,48px)}
+.welcome .kick{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bar-muted)}
+.welcome h1{font-size:clamp(30px,4.4vw,48px);line-height:1.06;font-weight:600;letter-spacing:-.02em;margin:10px 0 14px;text-wrap:balance}
+.welcome .lead{color:#C9C9C9;font-size:17px;max-width:60ch;margin:0}
+.wsteps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;counter-reset:w}
+@media (max-width:820px){.wsteps{grid-template-columns:minmax(0,1fr)}}
+.wstep{background:#202020;border:1px solid #2E2E2E;border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.wstep .num{font-family:var(--mono);font-size:11px;color:var(--bar-muted)}
+.wstep h2{font-size:18px;margin:0;font-weight:600}
+.wstep p{margin:0;color:#BDBDBD;font-size:14px}
+.wdemo{background:var(--paper);color:var(--ink);border-radius:4px;padding:14px;font-size:13px;margin-top:auto;display:flex;flex-direction:column;gap:8px;min-height:96px;justify-content:center}
+.wdemo .hl{background:var(--hl);outline:2px solid #C79A00;outline-offset:2px;border-radius:2px;position:relative;align-self:flex-start;font-weight:600}
+.wdemo .hl::after{content:"2";position:absolute;top:-11px;right:-15px;min-width:18px;height:18px;border-radius:9px;background:var(--hl);border:1px solid #C79A00;font-family:var(--mono);font-size:10px;font-weight:700;line-height:16px;text-align:center}
+.wdemo .fbb{align-self:flex-start;border:1px dashed #C79A00;color:#7A5E00;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600}
+.wdemo .ln{height:7px;background:var(--ph-2);border-radius:2px}
+.wlegend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px;font-size:13.5px;color:#C9C9C9;border-top:1px solid #2E2E2E;padding-top:24px}
+@media (max-width:700px){.wlegend{grid-template-columns:minmax(0,1fr)}}
+.wlegend div{display:flex;gap:12px;align-items:flex-start}
+.wlegend .sw2{flex:none;width:34px;height:22px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px}
+.wgo{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.wgo .btn{background:var(--hl);color:var(--ink);border-color:var(--hl);font-size:15px;padding:13px 20px}
+.wgo .btn.o{background:transparent;color:var(--bar-ink);border-color:#4A4A4A}
+.wgo small{color:var(--bar-muted);font-size:12.5px}
+body{margin:0}
+.who{display:flex;flex-direction:column;gap:5px}
+</style>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+<div class="rbar" data-uncommentable>
+  <div class="in">
+    <span class="brand"><b>Qwi</b> · Wireframes v0.8</span>
+    <label for="pageSel" class="brand" style="position:absolute;width:1px;height:1px;overflow:hidden">Página</label>
+    <select id="pageSel" aria-label="Ir a la página"></select>
+    <span class="sp"></span>
+    <label class="sw"><input type="checkbox" id="revSw" checked><span class="tr"></span>Modo revisión</label>
+    <label class="sw"><input type="checkbox" id="swapSw"><span class="tr"></span>Ver propuestas</label>
+    <button class="rbtn g" id="helpBtn" type="button">Cómo funciona</button>
+    <button class="rbtn g" id="fbBtn" type="button">Dejar feedback</button>
+    <button class="rbtn" id="allBtn" type="button">Revisión<span class="n" id="allN">0</span></button>
+  </div>
+</div>
+<div class="hint" id="hint" data-uncommentable>
+  <div class="in">
+    <p><b>Clic en un texto</b> para proponer otro. <b>«Feedback»</b> en cada sección para cualquier otro comentario: estructura, diseño, dudas, lo que falta.</p>
+    <button type="button" id="hintX">Entendido</button>
+  </div>
+</div>
+
+<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="wTitle" data-uncommentable hidden>
+  <div class="wrap">
+    <div>
+      <span class="kick">Qwi · Nueva web · Wireframes v0.8 · 11 páginas</span>
+      <h1 id="wTitle">Revisa la nueva web y dinos qué cambiarías</h1>
+      <p class="lead">Esto es la estructura y los textos de la web, sin diseño final. Navega por las páginas como si fuera la web real y deja tus propuestas donde las veas. No hace falta saber nada técnico: todo se guarda solo y lo vemos todo el equipo.</p>
+    </div>
+    <div class="wsteps">
+      <div class="wstep"><span class="num">01 · Textos</span><h2>Propón un texto</h2><p>Haz clic en cualquier título, párrafo o botón y escribe cómo lo dirías tú. Puedes añadir una nota explicando el porqué.</p>
+        <div class="wdemo" aria-hidden="true"><span class="hl">¿Cuál es el estado real de tu red?</span><span class="ln" style="width:90%"></span><span class="ln" style="width:70%"></span></div></div>
+      <div class="wstep"><span class="num">02 · Feedback</span><h2>Comenta cualquier cosa</h2><p>Cada sección tiene un botón <b>Feedback</b>: el orden, lo que sobra o falta, una imagen, una duda. Para algo general de la web, usa <b>Dejar feedback</b> arriba.</p>
+        <div class="wdemo" aria-hidden="true"><span class="fbb">💬 Feedback sobre esta sección</span><span class="ln" style="width:80%"></span><span class="ln" style="width:55%"></span></div></div>
+      <div class="wstep"><span class="num">03 · Seguimiento</span><h2>Mira lo que ya se ha dicho</h2><p>El botón <b>Revisión</b> reúne todas las propuestas y el feedback, por página. Activa <b>Ver propuestas</b> para leer la página con los cambios propuestos.</p>
+        <div class="wdemo" aria-hidden="true"><span style="font-family:var(--mono);font-size:10px;color:var(--faint)">INICIO</span><span class="ln" style="width:95%"></span><span style="font-family:var(--mono);font-size:10px;color:var(--faint)">KUMU</span><span class="ln" style="width:75%"></span></div></div>
+    </div>
+    <div class="wlegend">
+      <div><span class="sw2" style="background:var(--ph);color:#fff">IMG</span><span>Las <b>cajas grises</b> son fotos, capturas o diagramas que aún no están. Su etiqueta dice qué irá.</span></div>
+      <div><span class="sw2" style="background:#2A2A2A;color:#E8C64A;border:1px solid #444">[ ]</span><span>Lo marcado como <b>[por validar]</b> es un dato que necesitamos que confirméis.</span></div>
+      <div><span class="sw2" style="background:#2A2A2A;color:var(--bar-muted);border:1px solid #444">[ · ]</span><span>Las notas pequeñas entre corchetes encima de cada sección son para orientarse. No saldrán en la web.</span></div>
+      <div><span class="sw2" style="background:#E8C64A;color:var(--ink)">ON</span><span>Con <b>Modo revisión</b> activo, los clics proponen cambios. Desactívalo para navegar con los botones de la web.</span></div>
+    </div>
+    <div class="wgo"><button class="btn" type="button" id="wStart">Empezar la revisión</button><button class="btn o" type="button" id="wFb">Dejar un comentario general</button><small>Puedes volver aquí en cualquier momento con «Cómo funciona».</small></div>
+  </div>
+</div>
+
+<header class="site-h">
+  <div class="in">
+    <a class="logo" href="#inicio">QWI</a>
+    <nav class="nav" aria-label="Menú de la web">
+      <div class="it"><a class="top" href="#servicios">Servicios</a></div>
+      <div class="it"><a class="top" href="#soluciones">Soluciones ▾</a>
+        <div class="dd">
+          <div class="intro">Sistemas propios en producción que adaptamos a cada red.</div>
+          <a href="#soluciones"><b>Ver todas las soluciones</b></a>
+          <a href="#kumu"><span class="dot kumu"></span><span>Kumu <small>· Estimación de estado</small></span></a>
+          <a href="#olai"><span class="dot olai"></span><span>Olai <small>· Contingencias y maniobras</small></span></a>
+          <a href="#hiki"><span class="dot hiki"></span><span>Hiki <small>· Previsión de demanda y generación</small></span></a>
+          <a href="#mailuna"><span class="dot mailuna"></span><span>Mailuna <small>· Inspección aérea y nubes de puntos</small></span></a>
+        </div></div>
+      <div class="it"><a class="top" href="#casos-de-exito">Casos de éxito</a></div>
+      <div class="it"><a class="top" href="#nosotros">Nosotros</a></div>
+    </nav>
+    <span class="lang">ES / EN</span>
+    <a class="btn" href="#contacto">Contactar</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mnav">Menú</button>
+  </div>
+  <div class="in mnav" id="mnav">
+    <div class="g">Servicios</div><a href="#servicios">Todos los servicios</a><a href="#servicios-software">Software a medida</a><a href="#servicios-soporte">Soporte y evolución de aplicaciones</a><a href="#servicios-como">Cómo trabajamos</a>
+    <div class="g">Soluciones</div><a href="#soluciones">Todas las soluciones</a><a href="#kumu">Kumu · Estimación de estado</a><a href="#olai">Olai · Contingencias y maniobras</a><a href="#hiki">Hiki · Previsión de demanda y generación</a><a href="#mailuna">Mailuna · Inspección aérea y nubes de puntos</a>
+    <div class="g">Más</div><a href="#casos-de-exito">Casos de éxito</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contactar</a>
+  </div>
+</header>
+
+<main id="page"></main>
+
+<footer class="site-f">
+  <div class="in">
+    <div class="cols">
+      <div><span class="logo">QWI</span><p class="p" style="margin-top:12px">Ingeniería y software para redes eléctricas.</p></div>
+      <div><h5>Servicios</h5><a href="#servicios">Todos los servicios</a><a href="#servicios-software">Software a medida</a><a href="#servicios-soporte">Soporte y evolución</a><a href="#servicios-poc">Prueba de concepto</a><a href="#servicios-como">Cómo trabajamos</a></div>
+      <div><h5>Soluciones</h5><a href="#soluciones">Todas las soluciones</a><a href="#kumu">Kumu · Estimación de estado</a><a href="#olai">Olai · Contingencias y maniobras</a><a href="#hiki">Hiki · Previsión de demanda y generación</a><a href="#mailuna">Mailuna · Inspección aérea y nubes de puntos</a></div>
+      <div><h5>Contacto</h5><a href="#contacto">Contactar</a><span>info@qwi-ti.com</span><span>+34 911 836 240</span><span>Alcorcón, Madrid</span></div>
+      <div><h5>Legal</h5><span>Política de privacidad</span><span>Cookies</span><span>Aviso legal</span><span>Derechos humanos</span><span>Política de gestión ISO</span></div>
+    </div>
+    <div class="iso"><span class="chip">ISO 9001</span><span class="chip">ISO 14001</span><span class="chip">ISO 27001</span></div>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-labelledby="dTitle" data-uncommentable>
+  <header><h2 id="dTitle">Proponer un cambio</h2><button class="x" id="dClose" type="button" aria-label="Cerrar">×</button></header>
+  <div class="dbody" id="dBody"></div>
+</aside>
+
+<script>
+/* ---------- Contenido ---------- */
+const IC={
+ img:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>',
+ pulse:'<svg viewBox="0 0 24 24"><path d="M2 12h4l3-8 4 16 3-8h6"/></svg>',
+ ban:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>',
+ warn:'<svg viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg>',
+ doc:'<svg viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5M9 13h7M9 17h7"/></svg>',
+ hex:'<svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg>',
+ radio:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><path d="M7 7a7 7 0 0 0 0 10M17 7a7 7 0 0 1 0 10"/></svg>'
+};
+const SOL={kumu:["Kumu","Estimación de estado"],olai:["Olai","Contingencias y maniobras"],hiki:["Hiki","Previsión de demanda y generación"],mailuna:["Mailuna","Inspección aérea y nubes de puntos"]};
+
+function solPage(k,c){
+ const [name,fn]=SOL[k];
+ const others=Object.keys(SOL).filter(x=>x!==k);
+ const secs=[
+  {type:"hero",id:"hero",note:"[ Hero · incluye para quién y qué decide ]",label:`${name} · ${fn} · ${c.verb}`,dot:k,title:c.q,text:c.text,buttons:[["Solicitar Demo","contacto"],["Descargar ficha técnica","",'o']],img:c.heroImg,facts:c.facts},
+  {type:"subnav",name,dot:k,items:["Reto","Qué entrega","Caso de éxito","Implantación","Preguntas","Cómo funciona"]},
+  {type:"split",id:"reto",note:"[ El reto · con pares De… / A… ]",eb:"El reto",title:c.retoT,text:c.reto,fromto:c.fromto},
+  {type:"panels",id:"entrega",note:"[ Qué entrega · un panel por capacidad, con recorte de pantalla ]",eb:c.entregaEb||"Qué entrega",title:c.entregaT||"Lo que ve tu equipo",items:c.entrega,after:c.exporta}
+ ];
+ if(c.extra) secs.push(...c.extra);
+ secs.push(
+  {type:"case",id:"caso",note:"[ Caso de éxito · ficha fija ]",label:c.casoLabel,quote:c.casoQuote||"«Frase del cliente: qué ha cambiado en su trabajo con "+name+".»",cols:[["Cliente","Nombre, cargo y empresa"],["Reto","Reto del cliente en una frase"],["Resultado","Resultado medible"]],metrics:[["—","Indicador 1"],["—","Indicador 2"],["—","Indicador 3"]],link:["Leer el caso completo","ficha-caso"],img:"FOTO · instalaciones del cliente"},
+  {type:"impl",id:"implantacion",note:"[ Implantación · sustituye a «Cómo lo adaptamos» ]",eb:"Implantación",title:"Qué supone ponerlo en marcha",items:c.impl,link:["Ver cómo trabajamos","servicios-como"]},
+  {type:"qa",id:"preguntas",note:"[ Preguntas frecuentes · borrador hasta recibir las de Qwi ]",eb:"Preguntas frecuentes",title:"Lo que suelen preguntarnos sobre "+name,items:c.faq}
+ );
+ if(c.conecta) secs.push({type:"grid",id:"conecta",cols:2,note:"[ Se conecta con ]",eb:"Se conecta con",text:c.conecta[0],items:c.conecta[1].map(x=>({dot:x,title:SOL[x][0]+" · "+SOL[x][1],text:c.conecta[2]&&c.conecta[2][x],link:["Ver "+SOL[x][0],x]}))});
+ secs.push({type:"steps",id:"como",imgs:1,note:"[ Cómo funciona · del dato a la acción, con un visual por paso ]",eb:"Cómo funciona",title:c.stepsT,items:c.steps});
+ secs.push({type:"split",id:"nombre",note:"[ Origen del nombre ]",eb:"El nombre",title:"Por qué se llama "+name,text:c.nombre});
+ secs.push({type:"cta",id:"cierre",note:"[ Cierre · con persona de contacto ]",title:"¿Lo vemos aplicado a tu red?",text:"Cuéntanos el problema de red que quieres resolver y vemos cómo abordarlo.",buttons:[["Contactar","contacto"]],person:"Te ayuda a ver si "+name+" encaja en tu red y qué habría que adaptar."});
+ let b=1;for(const x of secs){if(x.type==="hero"||x.type==="subnav")continue;x.band=b;b^=1}
+ return {title:name+" · "+fn,group:"Soluciones",secs};
+}
+
+const CIERRE2=(band)=>({type:"cta",id:"cierre",band,note:"[ Cierre · dos caminos de contacto ]",title:"Hablemos de ingeniería",text:"Cuéntanos qué problema de red quieres resolver y vemos cómo abordarlo.",paths:[{title:"Adapta uno de nuestros sistemas",text:"Kumu, Olai, Hiki o Mailuna, ajustados a tu modelo de red, tus medidas y tus procesos.",btn:["Te ayudamos","contacto"]},{title:"Desarrolla lo que aún no existe",text:"Software a medida sobre la base técnica de nuestros sistemas, para un reto que no cubre ninguno de ellos.",btn:["Cuéntanos tu reto","contacto"]}],after:["¿Ya tienes un sistema implantado? Ver soporte y evolución","servicios-soporte"],contact:1});
+const PAGES={
+inicio:{title:"Inicio",secs:[
+ {type:"hero",id:"hero",note:"[ Hero · mensaje de servicio y logos de clientes ]",eb:"Ingeniería y software para redes de distribución",title:"Conoce tu red.\nAnticipa lo que viene.",text:"Ingenieros eléctricos y de software con más de 20 años en el sector. Ajustamos cada sistema a tu modelo de red, tus medidas y tus procesos. Si tu reto es otro, lo desarrollamos contigo.",buttons:[["Contactar","contacto"],["Ver soluciones","soluciones",'o']],img:"FOTO · red eléctrica vista desde un dron",logos:{label:"Trabajamos con",items:["Logo","Logo","Logo","Logo","Logo","Logo"]}},
+ {type:"rows",id:"soluciones",band:1,nopdf:1,note:"[ Soluciones en lista ]",eb:"Del dato a la acción",title:"Cuatro soluciones adaptadas a tu red",text:"La pregunta no es si hay datos, sino cómo convertirlos en decisiones de red fiables y trazables.",items:[
+   {dot:"kumu",label:"Kumu · Estimación de estado",title:"¿Cuál es el estado real de tu red?",text:"Acaba con las mediciones erróneas, los datos inconsistentes y las zonas de red sin visibilidad.",img:"Captura · dashboard de Kumu",link:["Ver Kumu","kumu"]},
+   {dot:"olai",label:"Olai · Contingencias y maniobras",title:"¿Qué pasa si falla un transformador?",text:"Identifica las maniobras más eficientes y decide con mapas de capacidad precisos.",img:"Captura · tabla N-1 de Olai",link:["Ver Olai","olai"]},
+   {dot:"hiki",label:"Hiki · Previsión de demanda y generación",title:"¿Cómo estará la red en 24 h, 7 o 10 días?",text:"Smart grids y flexibilidad: anticipa una gestión cada vez más compleja.",img:"Captura · curvas P/Q de Hiki",link:["Ver Hiki","hiki"]},
+   {dot:"mailuna",label:"Mailuna · Inspección aérea y nubes de puntos",title:"¿En qué estado están tus activos?",text:"Del vuelo LiDAR con dron a la orden de poda o inspección, con avisos priorizados.",img:"Captura · nube de puntos de Mailuna",link:["Ver Mailuna","mailuna"]}],
+  other:{title:"¿Tu problema es otro?",text:"Lo desarrollamos a medida sobre tu modelo de red, o nos hacemos cargo del sistema que ya tienes.",buttons:[["Cuéntanos tu reto","servicios-software"],["Soporte de aplicaciones","servicios-soporte",'o']]}},
+ {type:"layers",id:"ayudamos",note:"[ Cómo te ayudamos · dos capas: la base y el equipo ]",eb:"Cómo te ayudamos",title:"No partimos de cero",text:"Cada proyecto se apoya en sistemas propios y en el equipo que los ha construido.",
+   base:{eb:"La base",title:"Cuatro sistemas propios",text:"Estimación de estado, contingencias, previsión e inspección aérea, desarrollados por Qwi sobre redes reales.",sols:["kumu","olai","hiki","mailuna"],link:["Ver soluciones","soluciones"]},
+   team:{eb:"El equipo",title:"Ingenieros que los adaptan, los amplían y los mantienen",items:[["Soluciones adaptadas","Ajustamos cada sistema a tu red y a tu forma de trabajar.",["Ver cómo","servicios-soluciones"]],["Software a medida","Desarrollamos lo que no cubre ninguno, sobre la misma base técnica.",["Cuéntanos tu reto","servicios-software"]],["Soporte y evolución","Mantenemos tus aplicaciones, aunque no las hayamos desarrollado nosotros.",["Ver soporte","servicios-soporte"]]]}},
+ {type:"case",id:"caso",band:1,note:"[ Caso de éxito destacado · más detallado ]",eb:"Caso de éxito",label:"Cliente · solución",quote:"«Frase del cliente sobre el resultado, en una o dos líneas.»",cols:[["Reto","Reto del cliente en una frase"],["Qué hicimos","Sistema de partida y qué se adaptó"],["Resultado","Resultado medible"]],metrics:[["—","Indicador 1"],["—","Indicador 2"],["—","Indicador 3"]],link:["Leer el caso completo","ficha-caso"],img:"FOTO · instalaciones del cliente"},
+ {type:"facts",id:"porque",note:"[ Por qué Qwi ]",eb:"Por qué Qwi",facts:[["+20","años desarrollando algoritmia e IA para el sector eléctrico [por validar: +20 o +25]"],["+300 K","km de red modelados"],["ISO","9001 · 14001 · 27001: calidad, medio ambiente y seguridad de la información [vigencia por validar]"]],list:[
+   ["Ingenieros eléctricos y de software, en el mismo equipo","Entendemos tanto el código como la red sobre la que funciona."],
+   ["Nacidos de proyectos reales","Nuestros sistemas salieron de proyectos con distribuidoras. Esa experiencia es la base de cada adaptación."],
+   ["Se conecta a lo que ya tienes","Funciona en paralelo al ADMS, se adapta a tu modelo de red y exporta a formatos estándar como CIM o KML."]]},
+ {type:"steps",id:"trabajamos",band:1,note:"[ Cómo trabajamos · resumen ]",eb:"Cómo trabajamos",title:"Trabajamos en paralelo a tus sistemas",items:[["Sin integraciones","No hace falta integrarse con tu ADMS ni tu SCADA."],["Sobre tu modelo de red","Nos adaptamos al modelo y a los formatos de tu compañía."],["En tu infraestructura","Se instala en tus servidores y nuestro equipo lo mantiene."],["Pruébalo antes","Una prueba de concepto con un caso real de tu red."]],link:["Ver cómo trabajamos","servicios-como"]},
+ CIERRE2()
+]},
+
+servicios:{title:"Servicios",secs:[
+ {type:"hero",id:"hero",note:"[ Hero · todos los servicios de un vistazo ]",eb:"Servicios",title:"Te ayudamos a convertir datos en decisiones fiables",text:"Adaptamos nuestros sistemas a tu red, desarrollamos lo que necesites a medida y mantenemos las aplicaciones que ya tienes. Siempre con el mismo equipo de ingenieros eléctricos y de software."},
+ {type:"overview",id:"resumen",flush:1,note:"[ Resumen · cada tarjeta baja a su sección ]",items:[
+   {go:"soluciones",more:"Ver soluciones",title:"Soluciones adaptadas",text:"Partimos de un sistema ya probado en grandes distribuidoras y lo adaptamos a tu modelo de red, tus medidas y tus procesos."},
+   {go:"servicios-software",title:"Software a medida",text:"Para un reto que no cubre ninguna de nuestras soluciones. Sin partir de cero."},
+   {go:"servicios-soporte",title:"Soporte y evolución",text:"Mantenemos y evolucionamos tus aplicaciones, aunque no las hayamos desarrollado nosotros."},
+   {go:"servicios-poc",title:"Prueba de concepto",text:"Pruébalo con un caso real de tu red antes de decidir."}]},
+ {type:"anchors",items:[["soluciones","Soluciones adaptadas"],["servicios-software","Software a medida"],["servicios-soporte","Soporte y evolución"],["servicios-poc","Prueba de concepto"],["servicios-como","Cómo trabajamos"]]},
+ {type:"split",id:"software",note:"[ Software a medida ]",eb:"Software a medida",title:"¿Un reto distinto? Lo desarrollamos contigo",text:"Un traje a medida, pero sin partir de cero: reutilizamos la base técnica de nuestros sistemas en producción, como la estimación de estado, el flujo de cargas o la simulación de contingencias.",link:["Cuéntanos tu reto","contacto"],img:"FOTO · sesión de trabajo con el equipo técnico del cliente"},
+ {type:"grid",id:"retos",cols:3,eb:"Qué desarrollamos",title:"Modelos de cálculo, previsión y optimización",items:[{title:"Cálculo de red",text:"Modelos que calculan cómo está y cómo responde tu red, sobre tu topología."},{title:"Previsión",text:"Modelos que anticipan demanda y generación, con el método siempre visible."},{title:"Optimización",text:"Algoritmos que eligen la mejor opción: una maniobra, una prioridad, un plan."}]},
+ {type:"steps",id:"como-sw",eb:"Cómo lo hacemos",title:"Del reto al sistema en producción",items:[["Análisis del reto","Ingenieros eléctricos y de software definen contigo el problema y los datos."],["Algoritmia e IA","Modelos de cálculo, previsión y optimización desarrollados para tu red."],["Integración","Sobre tu modelo de red, tu inventario y los formatos que ya utilizas."],["Soporte continuo","Mantenimiento y evolución con el mismo equipo que lo desarrolló."]]},
+ {type:"split",id:"contrato",eb:"Cómo se contrata",title:"Por proyecto, con un equipo dedicado",text:"Un equipo de Qwi asignado durante el tiempo que dure el proyecto. También trabajamos en contratos marco y licitaciones."},
+ {type:"split",id:"soporte",band:1,note:"[ Soporte y evolución ]",eb:"Soporte y evolución",title:"¿Un sistema ya implantado? Lo mantenemos contigo",text:"Diagnóstico, corrección y evolución de tus aplicaciones, aunque no las hayamos desarrollado nosotros. Un equipo estable que entiende tanto el código como la red sobre la que funciona.",link:["Hablemos de tu aplicación","contacto"],img:"FOTO · equipo de Qwi con el equipo del cliente"},
+ {type:"grid",id:"incluye",band:1,cols:4,eb:"Qué incluye",items:[{title:"Diagnóstico",text:"Analizamos el sistema, su código y sus datos para entender cómo funciona hoy."},{title:"Corrección",text:"Resolvemos incidencias y errores con una respuesta ágil."},{title:"Evolución",text:"Adaptación a nuevas necesidades, cambios normativos o mayores volúmenes de datos."},{title:"Continuidad",text:"Un equipo estable que conoce tu sistema y documenta cada cambio."}]},
+ {type:"chips",id:"clientes-soporte",band:1,tight:1,note:"[ Cliente de soporte · logo por confirmar ]",groups:[["Clientes de soporte",["Logo"]]]},
+ {type:"steps",id:"poc",note:"[ Prueba de concepto ]",eb:"Prueba de concepto",title:"Pruébalo antes de decidir",items:[["Definir","Elegimos contigo una zona, un reto y unos criterios de éxito."],["Cargar","Cargamos un caso real en un entorno de pruebas, sin integraciones."],["Acompañar","Nuestro equipo te acompaña durante la prueba."],["Decidir","Revisamos juntos los resultados y decides."]],link:["Proponer una prueba de concepto","contacto"]},
+ {type:"qa",id:"como",band:1,note:"[ Cómo trabajamos · preguntas en el orden en que suelen surgir ]",eb:"Cómo trabajamos",title:"Lo que nos preguntan en las primeras reuniones",items:[
+   ["¿Hay que integrarlo con el ADMS o el SCADA?","No. Trabajamos en paralelo a tus sistemas de operación, sin integrarnos con el ADMS ni el SCADA."],
+   ["¿Con qué modelo de red trabajáis?","Con el de tu compañía. Nos adaptamos a su formato, por ejemplo CYME, y exportamos a estándares como PSS/E, CIM o KML."],
+   ["¿Qué datos necesitáis para empezar?","Depende de la solución: modelo de red y medidas para Kumu, modelo de red para Olai, histórico de demanda y generación para Hiki y vuelos LiDAR para Mailuna."],
+   ["¿Partís de cero?","No. Partimos de sistemas ya en producción y los adaptamos a tu red y a tus procesos."],
+   ["¿Dónde se instala y quién lo mantiene?","En tu infraestructura. Nuestro equipo se encarga del mantenimiento correctivo y evolutivo."],
+   ["¿Cómo se protege la información?","Estamos certificados en ISO 27001, seguridad de la información."],
+   ["Otras preguntas frecuentes","Pendiente: preguntas frecuentes que nos enviará Qwi."]]},
+ {type:"cta",id:"cierre",note:"[ Cierre · con persona de contacto ]",title:"¿Lo vemos aplicado a tu red?",text:"Cuéntanos el problema de red que quieres resolver y vemos cómo abordarlo.",buttons:[["Contactar","contacto"]],person:"Te ayuda a decidir por dónde empezar: una solución adaptada, un desarrollo a medida o una prueba de concepto."}
+]},
+
+soluciones:{title:"Soluciones",secs:[
+ {type:"hero",id:"hero",note:"[ Hero · todas las soluciones de un vistazo ]",eb:"Soluciones",title:"Cuatro sistemas para cuatro retos de tu red",text:"Estimar el estado real, simular fallos, anticipar sobrecargas e inspeccionar activos. Sistemas en producción en grandes distribuidoras que adaptamos a tu red."},
+ {type:"grid",id:"resumen",flush:1,cols:4,note:"[ Resumen · cada tarjeta lleva a su página ]",items:[
+   {dot:"kumu",title:"Kumu · Estimación de estado",text:"¿Cuál es el estado real de tu red?",link:["Ver Kumu","kumu"]},
+   {dot:"olai",title:"Olai · Contingencias y maniobras",text:"¿Qué pasa si falla un transformador?",link:["Ver Olai","olai"]},
+   {dot:"hiki",title:"Hiki · Previsión de demanda y generación",text:"¿Cómo estará la red en 24 h, 7 o 10 días?",link:["Ver Hiki","hiki"]},
+   {dot:"mailuna",title:"Mailuna · Inspección aérea y nubes de puntos",text:"¿En qué estado están tus activos?",link:["Ver Mailuna","mailuna"]}]},
+ {type:"rows",id:"detalle",band:1,nopdf:1,note:"[ Cada solución en detalle ]",eb:"En detalle",title:"Qué resuelve cada una",items:[
+   {dot:"kumu",label:"Kumu · Estimación de estado",title:"¿Cuál es el estado real de tu red?",text:"Acaba con las mediciones erróneas, los datos inconsistentes y las zonas de red sin visibilidad.",img:"Captura · dashboard de Kumu",link:["Ver Kumu","kumu"]},
+   {dot:"olai",label:"Olai · Contingencias y maniobras",title:"¿Qué pasa si falla un transformador?",text:"Identifica las maniobras más eficientes y decide con mapas de capacidad precisos.",img:"Captura · tabla N-1 de Olai",link:["Ver Olai","olai"]},
+   {dot:"hiki",label:"Hiki · Previsión de demanda y generación",title:"¿Cómo estará la red en 24 h, 7 o 10 días?",text:"Smart grids y flexibilidad: anticipa una gestión cada vez más compleja.",img:"Captura · curvas P/Q de Hiki",link:["Ver Hiki","hiki"]},
+   {dot:"mailuna",label:"Mailuna · Inspección aérea y nubes de puntos",title:"¿En qué estado están tus activos?",text:"Del vuelo LiDAR con dron a la orden de poda o inspección, con avisos priorizados.",img:"Captura · nube de puntos de Mailuna",link:["Ver Mailuna","mailuna"]}]},
+ {type:"grid",id:"equipos",cols:4,note:"[ Por equipo · qué solución usa cada uno ]",eb:"Por equipo",title:"Qué aporta a cada equipo",items:[
+   {title:"Planificación",text:"Estado real y previsto de la red sobre un modelo trazable: Kumu e Hiki."},
+   {title:"Acceso y capacidad",text:"Contingencias, maniobras y mapas de capacidad para estudios de acceso: Olai y Kumu."},
+   {title:"Mantenimiento",text:"Inspección aérea, avisos priorizados y órdenes de poda: Mailuna."},
+   {title:"Dirección",text:"Una visión común de la red y decisiones trazables, con informes de las cuatro."}]},
+ {type:"split",id:"encajan",band:1,note:"[ Cómo encajan ]",eb:"Cómo encajan",title:"Independientes, pero sobre el mismo modelo",text:"Cada sistema resuelve un problema por sí mismo. Si trabajas con más de uno, comparten el modelo de red. Kumu es la pieza principal y puede conectarse con las demás, aunque no es obligatorio empezar por él.",img:"DIAGRAMA · cómo se conectan Kumu, Olai, Hiki y Mailuna"},
+ {type:"cta",id:"cierre",note:"[ Cierre ]",title:"¿Lo vemos aplicado a tu red?",text:"Cuéntanos qué problema quieres resolver y te enseñamos el sistema que encaja, con un caso parecido al tuyo.",buttons:[["Agendar llamada","contacto"],["¿Tu reto es otro?","servicios-software",'o']]}
+]},
+
+kumu:solPage("kumu",{nombre:"En hawaiano, kumu significa «raíz, base, guía». Conocer el estado real de la red es la base sobre la que se apoya cada decisión.",verb:"Estimar",q:"¿Cuál es el estado real de tu red?",text:"Kumu estima el estado de la red en baja, media, alta y muy alta tensión, presente y pasado, aunque falten medidas o haya errores. Y te dice dónde falla el dato.",heroImg:"FOTO · centro de control de la distribuidora",
+ facts:[["Qué necesita","Modelo de red y medidas disponibles"],["Qué entrega","El estado de toda la red, con la calidad del dato en cada subred"],["Para quién","Planificación · Acceso y capacidad","Para planificar y atender solicitudes de conexión sobre un modelo trazable, medida a medida."]],
+ retoT:"Planificar sobre medidas incompletas",reto:"Medidas incompletas, erróneas o no simultáneas, y zonas sin visibilidad. Sin un modelo fiable es difícil planificar o responder a solicitudes de conexión con datos defendibles.",
+ fromto:[["Medidas sueltas, erróneas o no simultáneas","Un modelo completo y trazable, medida a medida"],["Zonas de la red sin visibilidad","El estado estimado de toda la red, con su calidad por subred"]],
+ entrega:[["Compara medida y estimación en cada nivel de tensión","Potencia estimada frente a medida y error medio, de baja a muy alta tensión.","Recorte · dashboard por nivel de tensión"],["Ve dónde falla el dato, subred a subred","Error medio (MAE) con semáforo para localizar de un vistazo las subredes con peor calidad de dato.","Recorte · semáforo de MAE por subred"],["Sitúa cada resultado en el esquema y en el mapa","Unifilar esquemático y geográfico con el estado de cada subred.","Recorte · unifilar geográfico"],["Documenta cada decisión","Informes en 5 categorías: inventario, topología, parámetros, resultados y anomalías, y expedientes.","Recorte · listado de informes"]],exporta:"Exporta a PSS/E · CIM · KML · PSE · CYME",
+ stepsT:"De medidas sueltas a decisiones defendibles",steps:[["Tus datos","Tu modelo de red y las medidas disponibles, aunque falten o tengan errores.","VISUAL · modelo y medidas de partida"],["Cálculo","Algoritmos que calculan, corrigen y verifican cada medida, y descartan las anómalas.","VISUAL · medidas descartadas y corregidas"],["Revisión","Tu equipo revisa el estado estimado y la calidad del dato en cada subred.","VISUAL · semáforo de calidad por subred"],["Acción","Planificas y respondes a solicitudes de conexión con un modelo trazable, y lo exportas a tus herramientas.","VISUAL · informe o exportación"]],
+ impl:[["Qué aportas","Tu modelo de red y las medidas disponibles, en los formatos que ya utilizas."],["Qué adaptamos","El sistema, a tu modelo de red (por ejemplo, CYME) y a tus medidas."],["Cuánto tarda","[por validar] Plazo habitual desde la entrega de datos hasta la primera estimación."],["Qué pasa después","Se instala en tu infraestructura, en paralelo al ADMS, y nuestro equipo lo mantiene y lo hace evolucionar."]],
+ faq:[["¿Qué datos necesita?","Tu modelo de red y las medidas disponibles. Está pensado para trabajar aunque falten medidas o haya errores."],["¿Con qué formatos trabaja?","Se adapta al formato de tu modelo de red, por ejemplo CYME, y exporta a PSS/E, CIM, KML, PSE y CYME."],["¿Hay que integrarlo con el ADMS o el SCADA?","No. Funciona en paralelo a tus sistemas de operación."],["¿Cuánto tarda la implantación?","[por validar] Pendiente de que Qwi indique un plazo orientativo."]],
+ casoLabel:"Gran distribuidora · nombre pendiente de permiso",
+ conecta:["Kumu es la pieza principal y puede conectarse con las demás soluciones, aunque no es obligatoria.",["olai","hiki"],{olai:"Comparte con Kumu el modelo de red.",hiki:"Comparte con Kumu el modelo de red."}],
+ cierre:"Te enseñamos el dashboard y el unifilar con un caso similar al tuyo."}),
+
+olai:solPage("olai",{nombre:"En hawaiano, olai significa «hacia la vida» [por validar con Qwi]. Cuando falla un transformador, Olai encuentra el camino para devolver el suministro.",verb:"Simular",q:"¿Qué pasa si falla un transformador?",text:"Olai simula el fallo de cada transformador (N-1 / N-M) sobre todo el modelo de red en una sola ejecución, propone la secuencia de maniobras para reponer el servicio y calcula cuánta capacidad queda en cabecera.",heroImg:"FOTO · subestación y transformadores",
+ facts:[["Qué necesita","Modelo de red completo"],["Qué entrega","Maniobras de reposición y capacidad disponible en cabecera"],["Para quién","Acceso y capacidad · Planificación","Para elegir la maniobra de reposición y responder a estudios de acceso con capacidad calculada."]],
+ retoT:"Reponer sin sobrecargas ni subtensiones",reto:"Ante un fallo hay que saber qué zonas quedan afectadas, cómo reponerlas sin sobrecargas ni subtensiones y con el mínimo impacto en clientes, y cuánta capacidad queda.",
+ fromto:[["Estudiar los fallos uno a uno","Todos los transformadores simulados en una sola ejecución"],["Capacidad estimada a ojo","Capacidad calculada en cada barra de cabecera"]],
+ entrega:[["Mira el impacto de cada fallo, transformador a transformador","Carga, potencia no garantizada (PNG), pérdidas y estado de cada caso, con filtros.","Recorte · tabla de resultados N-1"],["Sigue cada maniobra sobre el esquema y el mapa","Cada apertura y cierre de la secuencia de reposición, sobre el unifilar y sobre la vista geográfica.","Recorte · unifilar con la secuencia de maniobras"],["Conoce cuánta carga admite cada cabecera","Carga creciente por escalones hasta generar PNG o llegar al límite del transformador.","Recorte · capacidad en barras de cabecera"],["Responde a estudios de acceso con capacidad calculada","Mapas de capacidad generados automáticamente y listos para exportar.","Recorte · mapa de capacidad"]],exporta:"N-1 / N-M · Secuencia de maniobras · Capacidad en cabecera",
+ stepsT:"Del fallo simulado a la maniobra",steps:[["Tus datos","Tu modelo de red completo.","VISUAL · modelo de red cargado"],["Cálculo","Fallos N-1 y N-M simulados sobre toda la red, en una sola ejecución.","VISUAL · simulación en curso"],["Revisión","Tu equipo revisa el impacto de cada fallo y las maniobras propuestas.","VISUAL · tabla N-1 y unifilar"],["Acción","Aplicas la secuencia de reposición y respondes a estudios de acceso con capacidad calculada.","VISUAL · secuencia de maniobras"]],
+ impl:[["Qué aportas","Tu modelo de red completo, en el formato que ya utilizas."],["Qué adaptamos","El sistema, a tu red y a tus criterios de reposición."],["Cuánto tarda","[por validar] Plazo habitual desde la entrega del modelo hasta la primera simulación."],["Qué pasa después","Se instala en tu infraestructura, en paralelo al ADMS, y nuestro equipo lo mantiene y lo hace evolucionar."]],
+ faq:[["¿Qué datos necesita?","Tu modelo de red completo."],["¿Qué fallos simula?","Fallos N-1 y N-M (de uno o de varios elementos), sobre toda la red y en una sola ejecución."],["¿Hay que integrarlo con el ADMS o el SCADA?","No. Funciona en paralelo a tus sistemas de operación."],["¿Cuánto tarda la implantación?","[por validar] Pendiente de que Qwi indique un plazo orientativo."]],
+ casoLabel:"Gran distribuidora · nombre pendiente de permiso",
+ conecta:["Olai trabaja sobre el modelo de red y puede conectarse con Kumu.",["kumu"],{kumu:"Estimación de estado sobre el mismo modelo de red."}],
+ cierre:"Te enseñamos una simulación N-1 completa con un caso similar al tuyo."}),
+
+hiki:solPage("hiki",{nombre:"En hawaiano, hiki significa «en el tiempo que viene». Mira la red de mañana, de la semana próxima y de los próximos diez días.",verb:"Anticipar",q:"¿Cómo estará la red en 24 h, 7 o 10 días?",text:"Hiki prevé la demanda y la generación en cada punto de la red, con su margen de incertidumbre (P10/P90), y calcula el estado de la red hora a hora para detectar las sobrecargas antes de que ocurran.",heroImg:"FOTO · parques solares y eólicos conectados a la red",
+ facts:[["Qué necesita","Modelo de red e histórico de demanda y generación"],["Qué entrega","Curvas de previsión y estado de la red hora a hora"],["Para quién","Planificación de red","Para anticipar sobrecargas y preparar la red con antelación."]],
+ retoT:"Planificar con una red que cambia",reto:"La generación renovable, la flexibilidad y las nuevas demandas cambian los flujos de la red. Planificar solo con históricos ya no basta.",
+ fromto:[["Planificar solo con históricos","Previsiones de demanda y generación a 24 h, 7 y 10 días"],["Descubrir la sobrecarga cuando ocurre","Anticiparla hora a hora, con margen para actuar"]],
+ entrega:[["Compara la previsión con lo que pasó","Curvas de potencia activa y reactiva en cada punto, con el histórico real y el ciclo anterior al lado.","Recorte · curvas P/Q con histórico"],["Entiende de dónde sale cada curva","Cada curva muestra el modelo aplicado y su configuración.","Recorte · modelo aplicado"],["Detecta las sobrecargas antes de que ocurran","Carga máxima de rama, pérdidas y tensiones fuera de banda para cada hora del horizonte, con envío de sobrecargas a alarmas.","Recorte · estado de red previsto"],["Lleva el escenario a tus estudios","Exporta el caso de cualquier hora del horizonte (T+n) para seguir trabajando con tus herramientas.","Recorte · exportación del caso T+n"]],exporta:"24 h · 7 d · 10 d · Bandas P10/P90 · Flujo de cargas AC",
+ stepsT:"De la curva prevista a la sobrecarga anticipada",steps:[["Tus datos","Tu modelo de red y el histórico de demanda y generación.","VISUAL · histórico de partida"],["Cálculo","Previsión a 24 h, 7 y 10 días con su margen de incertidumbre (P10/P90) y flujo de cargas para cada hora.","VISUAL · curva con banda P10/P90"],["Revisión","Tu equipo compara la previsión con el histórico y revisa el estado previsto.","VISUAL · estado de red previsto"],["Acción","Preparas la red antes de la sobrecarga y llevas el escenario a tus estudios.","VISUAL · caso exportado"]],
+ impl:[["Qué aportas","Tu modelo de red y el histórico de demanda y generación."],["Qué adaptamos","El sistema, a tu red y a tus históricos."],["Cuánto tarda","[por validar] Plazo habitual desde la entrega de datos hasta la primera previsión."],["Qué pasa después","Se instala en tu infraestructura, en paralelo al ADMS, y nuestro equipo lo mantiene y lo hace evolucionar."]],
+ faq:[["¿Qué datos necesita?","Tu modelo de red y el histórico de demanda y generación."],["¿Qué horizontes de previsión cubre?","24 horas, 7 días y 10 días, con su margen de incertidumbre (P10/P90)."],["¿Se puede ver cómo se calcula la previsión?","Sí. El modelo es transparente: cada curva muestra el modelo aplicado y su configuración."],["¿Cuánto tarda la implantación?","[por validar] Pendiente de que Qwi indique un plazo orientativo."]],
+ casoLabel:"Próxima entrada en producción en una gran distribuidora",
+ conecta:["Hiki trabaja sobre el modelo de red y puede conectarse con Kumu [relación por validar].",["kumu"],{kumu:"Estimación de estado sobre el mismo modelo de red."}],
+ cierre:"Te enseñamos las curvas y el estado de red previsto con un caso similar al tuyo."}),
+
+mailuna:solPage("mailuna",{nombre:"En hawaiano, mailuna significa «desde arriba» [por validar con Qwi]. Ve la red como solo se ve desde el aire: apoyo a apoyo, tramo a tramo.",verb:"Inspeccionar",q:"¿En qué estado están tus líneas?",text:"Mailuna procesa los vuelos LiDAR con dron, detecta qué necesita atención en cada apoyo y lo convierte en órdenes de poda e inspección priorizadas.",heroImg:"FOTO · dron volando sobre una línea de media tensión",
+ facts:[["Qué necesita","Las líneas a inspeccionar y tus criterios de mantenimiento"],["Qué entrega","Avisos priorizados y órdenes de trabajo"],["Para quién","Plan de mantenimiento","Para priorizar podas e inspecciones por tramo y mantener al día el inventario de la red."]],
+ retoT:"Kilómetros de línea, recursos limitados",reto:"Mantener kilómetros de línea exige decidir dónde actuar primero: vegetación, estado de los apoyos, avifauna. Y si el inventario no está al día, el modelo de red tampoco.",
+ fromto:[["Kilómetros de línea sin priorizar","Avisos de actuar o vigilar, apoyo a apoyo"],["Un inventario desactualizado","Un inventario revisado a partir de la nube de puntos"]],
+ entrega:[["Mide la distancia a la vegetación en cada apoyo","Nube de puntos 3D clasificada por apoyo, con la altura libre a la vegetación y la proyección de crecimiento.","Recorte · nube de puntos clasificada"],["Prioriza qué atender primero","Más de 6 tipos de aviso, entre ellos vegetación, inventario, inclinación, cables de tierra y avifauna, con la confianza del dato.","Recorte · lista de avisos"],["Planifica los vuelos sobre el mapa","Calendario, histórico y planificación de vuelos por línea y tramo.","Recorte · mapa de la línea con la franja LiDAR"],["Pasa del aviso a la orden de trabajo","Órdenes de poda e inspección creadas desde el propio aviso, con fecha y motivo.","Recorte · orden de poda"]],exporta:"Nube 3D · Avisos priorizados · Órdenes de trabajo",
+ stepsT:"Del vuelo a la orden de trabajo",steps:[["Tus datos","Vuelo LiDAR con dron, por línea y tramo.","VISUAL · vuelo sobre la línea"],["Cálculo","Nube de puntos clasificada por apoyo, con su distancia a la vegetación.","VISUAL · nube de puntos clasificada"],["Revisión","Tu equipo revisa los avisos priorizados: actuar o vigilar.","VISUAL · avisos sobre el mapa"],["Acción","Cada aviso se convierte en una orden de poda o de inspección.","VISUAL · orden de trabajo"]],
+ impl:[["Qué aportas","Las líneas que quieres inspeccionar y tus criterios de mantenimiento."],["Qué adaptamos","El sistema, a tus criterios de mantenimiento. Quién vuela: [por validar]."],["Cuánto tarda","[por validar] Plazo habitual desde el vuelo hasta los primeros avisos."],["Qué pasa después","Nuestro equipo mantiene el sistema y planifica contigo los siguientes vuelos."]],
+ faq:[["¿Quién hace los vuelos?","[por validar con Qwi]"],["¿Qué tipos de aviso genera?","Más de 6, entre ellos vegetación, inventario, inclinación, cables de tierra y avifauna."],["¿Puedo usar vuelos que ya tengo?","[por validar con Qwi]"],["¿Cuánto tarda la implantación?","[por validar] Pendiente de que Qwi indique un plazo orientativo."]],
+ casoLabel:"Gran distribuidora · nombre pendiente de permiso",
+ conecta:["[por validar con Qwi] ¿Mailuna actualiza el inventario del modelo de red que usa Kumu?",["kumu"],{kumu:"Estimación de estado sobre el modelo de red."}]}),
+
+"casos-de-exito":{title:"Casos de éxito",secs:[
+ {type:"hero",id:"hero",note:"[ Hero ]",eb:"Casos de éxito",title:"Sistemas en producción en grandes distribuidoras",text:"Qué problema tenía cada cliente, qué adaptamos y qué cambió."},
+ {type:"cases",id:"lista",band:1,note:"[ Listado de casos · misma ficha para todos ]",items:[
+   {facts:[["Cliente","Logo o descriptor anónimo"],["Tipo","Distribuidora eléctrica"],["Región","—"],["En producción desde","Año"]],sol:"kumu",title:"Título del caso en una línea",metrics:[["—","Indicador 1"],["—","Indicador 2"],["—","Indicador 3"]],link:["Leer el caso","ficha-caso"]},
+   {facts:[["Cliente","Logo o descriptor anónimo"],["Tipo","—"],["Región","—"],["En producción desde","Año"]],sol:"mailuna",title:"Próximo caso",metrics:[["—","Indicador 1"],["—","Indicador 2"],["—","Indicador 3"]]}]},
+ {type:"nda",id:"nda",note:"[ Bajo NDA · proyectos que Qwi nos facilite, sin nombre ]",eb:"Bajo acuerdo de confidencialidad",title:"Lo que no podemos firmar con nombre",text:"Muchos de nuestros proyectos están sujetos a acuerdos de confidencialidad. Los mostramos sin cliente, por sector y región.",cols:["Sector","Región","Solución o servicio","Qué hicimos"],rows:[["Distribución eléctrica","[por validar]","Kumu","Descripción en una línea [por validar]"],["Distribución eléctrica","[por validar]","Software a medida","Descripción en una línea [por validar]"],["[por validar]","[por validar]","Soporte y evolución","Descripción en una línea [por validar]"]]},
+ CIERRE2(1)
+]},
+
+"ficha-caso":{title:"Ficha de caso",group:"Casos de éxito",secs:[
+ {type:"hero",id:"hero",note:"[ Hero de caso ]",eb:"Caso de éxito · Cliente",title:"Título del caso en una línea",text:"Resumen técnico en dos frases: el problema de red de partida y lo que cambió tras la implantación.",img:"FOTO · instalaciones del cliente",facts:[["Cliente","Logo o descriptor anónimo"],["Tipo","Distribuidora eléctrica"],["Región","—"],["Solución","Kumu · Estimación de estado"],["En producción desde","Año"]]},
+ {type:"split",id:"adapta",band:1,note:"[ No partimos de cero ]",eb:"Cómo las adaptamos",title:"No partimos de cero",text:"Partimos de un sistema en producción y lo adaptamos a tu red. Funciona en paralelo al ADMS, se instala en tu infraestructura y nuestro equipo lo mantiene.",link:["Ver cómo trabajamos","servicios-como"]},
+ {type:"split",id:"contexto",note:"[ Contexto y reto ]",eb:"Contexto",title:"El problema de partida",text:"Red, niveles de tensión y volumen de medidas implicados, y por qué el cliente necesitaba resolverlo."},
+ {type:"split",id:"hicimos",band:1,note:"[ Qué hicimos ]",eb:"Qué hicimos",title:"Qué adaptamos a su red",text:"Sistema de partida, qué se ajustó al modelo y a los procesos del cliente, y cómo se desplegó en su infraestructura.",link:["Ver cómo trabajamos","servicios-como"]},
+ {type:"facts",id:"resultados",note:"[ Resultados ]",eb:"Resultados",facts:[["—","Indicador 1"],["—","Indicador 2"],["—","Indicador 3"]]},
+ {type:"grid",id:"visuales",band:1,cols:2,note:"[ Visuales del proyecto ]",eb:"El sistema en el cliente",items:[{img:"Captura · sistema en el cliente",title:"Pie de la captura"},{img:"FOTO · equipo o instalaciones",title:"Pie de la imagen"}]},
+ {type:"case",id:"testimonio",note:"[ Testimonio ]",label:"Testimonio",quote:"«Cita del cliente.»",cols:[["Nombre","—"],["Cargo","—"],["Empresa","—"]],img:"FOTO · persona del cliente"},
+ CIERRE2(1)
+]},
+
+nosotros:{title:"Nosotros",secs:[
+ {type:"hero",id:"hero",note:"[ Hero ]",eb:"Nosotros",title:"Ingenieros eléctricos y de software en el mismo equipo",text:"Más de 20 años desarrollando algoritmia e inteligencia artificial para el sector eléctrico. Entendemos la red y la convertimos en sistemas que funcionan.",img:"FOTO · equipo de Qwi"},
+ {type:"split",id:"dentro",band:1,note:"[ Desde dentro del sistema ]",eb:"Desde dentro del sistema",title:"Nuestros sistemas nacen de proyectos reales en redes de alta y media tensión",text:"Partimos de las restricciones reales de la red, no de escenarios ideales. Esa experiencia es la base de cada sistema y de cada desarrollo a medida."},
+ {type:"split",id:"enfoque",note:"[ Nuestro enfoque ]",eb:"Nuestro enfoque",title:"La tecnología, al servicio del criterio técnico",text:"Nuestros algoritmos trabajan con datos incompletos o inconsistentes y priorizan la coherencia del modelo y la fiabilidad del resultado.",link:["Ver cómo trabajamos","servicios-como"]},
+ {type:"team",id:"equipo",band:1,note:"[ Equipo ]",eb:"El equipo",title:"Quién está detrás",items:[["Jesús Besada","CEO"],["Gustavo Plaza","COO"],["Eduardo González","CBO"],["Carlos Fernández","PM/PO"]]},
+ {type:"chips",id:"clientes",tight:1,note:"[ Clientes, partners y certificaciones ]",groups:[["Clientes",["Logo","Logo","Logo"]],["Partners",["Grupo Acre"]],["Certificaciones",["ISO 9001","ISO 14001","ISO 27001"]]]},
+ CIERRE2(1)
+]},
+
+contacto:{title:"Contacto",secs:[
+ {type:"contact",id:"contacto",note:"[ Contacto · calendario primero, formulario como alternativa ]"}
+]}
+};
+
+/* ---------- Render ---------- */
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let P="inicio";const TXT={};
+function T(key,text,tag="span",cls=""){if(text==null||text==="")return"";const id=P+"."+key;TXT[id]=text;return`<${tag} class="t ${cls}" data-t="${esc(id)}" tabindex="0">${esc(text)}</${tag}>`}
+const capOf=l=>/^FOTO\b/.test(l)?"Pie si no es real: «Imagen ilustrativa»":/^(Captura|Recorte)\b/.test(l)?"Pie si no son datos reales: «Datos de ejemplo»":"";
+const ph=(label,cls="",nocap)=>{const box=`<div class="ph ${cls}">${IC.img}<span>${esc(/^FOTO\b/.test(label)?"IMAGEN":label)}</span></div>`;const c=nocap?"":capOf(label);return c?`<figure class="fig">${box}<figcaption>${esc(c)}</figcaption></figure>`:box};
+const href=go=>go?`#${go}`:"#";
+function btns(key,list){if(!list)return"";return`<div class="btns">${list.map((b,i)=>`<a class="btn ${b[2]||""}" href="${href(b[1])}">${T(key+".b"+i,b[0])}</a>`).join("")}</div>`}
+function lnk(key,l,cls=""){return l?`<a class="lnk ${cls}" href="${href(l[1])}">${T(key,l[0])}</a>`:""}
+function head(s,k){return`${s.eb?T(k+".eb",s.eb,"span","eb"):""}${s.title?T(k+".title",s.title,"h2","h2"):""}${s.text&&!s.img&&s.type!=="split"?T(k+".text",s.text,"p","p"):""}`}
+
+const R={
+ hero(s,k){return`<div class="${s.img?"g2":""}"><div style="${s.img?"":"max-width:780px"}">${s.label?`<span class="tag" style="margin-bottom:12px">${s.dot?`<span class="dot ${s.dot}"></span>`:""}${T(k+".label",s.label)}</span>`:""}${s.nombre?T(k+".nombre",s.nombre,"p","nombre"):""}${s.eb?T(k+".eb",s.eb,"span","eb"):""}${T(k+".title",s.title,"h1","h1")}${T(k+".text",s.text,"p","lead")}${btns(k,s.buttons)}</div>${s.img?ph(s.img):""}</div>
+  ${s.facts?`<div class="facts">${s.facts.map((f,i)=>`<div class="box">${T(k+".f"+i+".k",f[0],"span","eb")}${T(k+".f"+i+".v",f[1],"div","h4")}${f[2]?T(k+".f"+i+".d",f[2],"p","p sm"):""}</div>`).join("")}</div>`:""}
+  ${s.logos?`<div class="hero-logos">${T(k+".logos",s.logos.label,"span","lbl")}${s.logos.items.map((l,i)=>`<span class="logo-ph ${i===0?"strong":""}">${esc(l)}</span>`).join("")}</div>`:""}`},
+ situ(s,k){return`${head(s,k)}<div class="situ" style="margin-top:28px">${s.items.map((it,i)=>`<div class="card">${IC[it[0]]}${T(k+".i"+i,it[1],"span","txt")}<a class="sol" href="#${it[2]}"><span class="dot ${it[2]}"></span>${esc(SOL[it[2]][0]+" · "+SOL[it[2]][1])} →</a></div>`).join("")}
+  <div class="card other"><div>${T(k+".o.title",s.other.title,"h3","h3")}${T(k+".o.text",s.other.text,"p","p")}</div>${btns(k+".o",s.other.buttons)}</div></div>`},
+ grid(s,k){const n=s.cols||3;return`${head(s,k)}<div class="g${n}" style="margin-top:28px">${s.items.map((it,i)=>`<div class="${it.img?"":"box"}" style="display:flex;flex-direction:column;gap:8px">${it.img?ph(it.img):""}${it.dot?`<span class="dot ${it.dot}"></span>`:""}${T(k+".i"+i+".title",it.title,"h3","h3")}${T(k+".i"+i+".text",it.text,"p","p")}${lnk(k+".i"+i+".link",it.link)}</div>`).join("")}</div>${s.after?`<p style="margin-top:20px">${T(k+".after",s.after,"span","eb")}</p>`:""}`},
+ rows(s,k){return`${head(s,k)}<div class="rows" style="margin-top:20px">${s.items.map((it,i)=>`<div class="row"><span class="num">0${i+1}</span><div><span class="tag">${it.dot?`<span class="dot ${it.dot}"></span>`:""}${T(k+".i"+i+".label",it.label)}</span>${T(k+".i"+i+".title",it.title,"h3","h3")}${T(k+".i"+i+".text",it.text,"p","p")}<div class="links">${lnk(k+".i"+i+".link",it.link)}${s.nopdf?"":`<a class="lnk dl" href="#">${T(k+".i"+i+".pdf","Ficha técnica (PDF)")}</a>`}</div></div>${ph(it.img)}</div>`).join("")}</div>${s.other?`<div class="situ" style="margin-top:8px"><div class="card other"><div>${T(k+".o.title",s.other.title,"h3","h3")}${T(k+".o.text",s.other.text,"p","p")}</div>${btns(k+".o",s.other.buttons)}</div></div>`:""}`},
+ steps(s,k){return`${head(s,k)}<div class="steps ${s.imgs?"wimg":""}" style="margin-top:28px">${s.items.map((it,i)=>`<div class="box">${s.imgs&&it[2]?ph(it[2],"light"):""}${T(k+".i"+i+".title",it[0],"div","h4")}${T(k+".i"+i+".text",it[1],"p","p")}</div>`).join("")}</div>${s.link?`<div style="margin-top:24px">${lnk(k+".link",s.link)}</div>`:""}`},
+ split(s,k){const left=`${s.eb?T(k+".eb",s.eb,"span","eb"):""}${T(k+".title",s.title,"h2","h2")}`;const right=`${s.eb2?T(k+".eb2",s.eb2,"span","eb"):""}${T(k+".text",s.text,"p","lead")}${s.fromto?`<div class="ft"><span class="k">De</span><span></span><span class="k">A</span>${s.fromto.map((f,i)=>`${T(k+".de"+i,f[0],"div","de")}<span class="ar" aria-hidden="true">→</span>${T(k+".a"+i,f[1],"div","a")}`).join("")}</div>`:""}${lnk(k+".link",s.link)}`;
+  return s.img?`<div class="g2"><div>${left}${right}</div>${ph(s.img)}</div>`:`<div class="g2" style="align-items:start"><div>${left}</div><div>${right}</div></div>`},
+ image(s){return ph(s.label,"wide")},
+ overview(s,k){return`<div class="overview">${s.items.map((it,i)=>`<a class="ov" href="#${it.go}">${T(k+".i"+i+".title",it.title,"h3","h3")}${T(k+".i"+i+".text",it.text,"p","p")}<span class="more">${esc(it.more||"Ver más")}</span></a>`).join("")}</div>`},
+ case(s,k){return`<div class="g2"><div>${s.eb?T(k+".eb",s.eb,"span","eb"):""}${T(k+".label",s.label,"span","eb")}${T(k+".quote",s.quote,"p","quote")}<div class="kv">${s.cols.map((c,i)=>`<div>${T(k+".c"+i+".k",c[0],"span","k")}${T(k+".c"+i+".v",c[1],"div","")}</div>`).join("")}</div>${s.metrics?`<div class="kv">${s.metrics.map((m,i)=>`<div><div class="metric">${esc(m[0])}</div>${T(k+".m"+i,m[1],"span","k")}</div>`).join("")}</div>`:""}${lnk(k+".link",s.link)}</div>${ph(s.img)}</div>`},
+ facts(s,k){return`${s.eb?T(k+".eb",s.eb,"span","eb"):""}<div class="g2" style="align-items:start;margin-top:12px"><div class="stack">${s.facts.map((f,i)=>`<div>${T(k+".f"+i+".n",f[0],"div","big")}${T(k+".f"+i+".l",f[1],"span","p")}</div>`).join("")}</div>${s.list?`<div class="stack">${s.list.map((l,i)=>`<div>${T(k+".l"+i+".t",l[0],"div","h4")}${T(k+".l"+i+".d",l[1],"p","p")}</div>`).join("")}</div>`:"<div></div>"}</div>`},
+ chips(s,k){return`<div style="display:flex;flex-direction:column;gap:18px">${s.groups.map((g,i)=>`<div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px">${T(k+".g"+i,g[0],"span","h4")}<span style="width:12px"></span>${g[1].map(x=>`<span class="logo-ph">${esc(x)}</span>`).join("")}</div>`).join("")}</div>`},
+ qa(s,k){return`${head(s,k)}<div class="qa" style="margin-top:20px">${s.items.map((q,i)=>`<div class="q">${T(k+".q"+i,q[0],"h3","h3")}${T(k+".a"+i,q[1],"p","lead")}</div>`).join("")}</div>`},
+ team(s,k){return`${head(s,k)}<div class="g4 team" style="margin-top:28px">${s.items.map((m,i)=>`<div style="display:flex;flex-direction:column;gap:6px">${ph("FOTO · retrato","",1)}${T(k+".i"+i+".n",m[0],"div","h4")}${T(k+".i"+i+".r",m[1],"span","p")}</div>`).join("")}</div>`},
+ cta(s,k){
+  const person=s.person?`<div class="person box">${ph("FOTO · retrato","port",1)}<div>${T(k+".p.eb","Tu contacto","span","eb")}${T(k+".p.n","Eduardo González","div","h4")}${T(k+".p.r","CBO · Qwi","span","p sm")}${T(k+".p.t",s.person,"p","p")}${lnk(k+".p.link",["Agendar llamada con Eduardo","contacto"])}<span class="note" style="margin:10px 0 0">[ Pendiente: visto bueno de Eduardo ]</span></div></div>`:"";
+  const contact=s.contact?`<div class="stack" style="gap:6px">${T(k+".mail","info@qwi-ti.com","div","h4")}${T(k+".tel","+34 911 836 240","div","p")}${T(k+".li","LinkedIn","div","p")}</div>`:"";
+  const others=s.others?`<div>${T(k+".oth","Otras soluciones","span","eb")}<div class="${person?"g3":"g2"}" style="gap:10px">${s.others.map(o=>`<a class="box tag" href="#${o}" style="text-decoration:none;color:var(--ink)"><span class="dot ${o}"></span>${esc(SOL[o][0]+" · "+SOL[o][1])}</a>`).join("")}</div></div>`:"";
+  const paths=s.paths?`<div class="g2 paths">${s.paths.map((x,i)=>`<div class="box path">${T(k+".pa"+i+".title",x.title,"h3","h3")}${T(k+".pa"+i+".text",x.text,"p","p")}<div class="btns" style="margin-top:auto;padding-top:14px"><a class="btn" href="${href(x.btn[1])}">${T(k+".pa"+i+".btn",x.btn[0])}</a></div></div>`).join("")}</div>`:"";
+  return`<div class="g2" style="align-items:${person?"start":"end"}"><div>${T(k+".title",s.title,"h2","h1")}${T(k+".text",s.text,"p","lead")}${btns(k,s.buttons)}</div><div>${person||contact||(!person&&others)}</div></div>
+  ${paths?`<div style="margin-top:32px">${paths}</div>`:""}${s.after?`<div style="margin-top:20px">${lnk(k+".after",s.after)}</div>`:""}${person&&others?`<div style="margin-top:40px">${others}</div>`:""}`},
+ panels(s,k){return`${head(s,k)}<div class="panels">${s.items.map((it,i)=>`<div class="panel ${i%2?"rev":""}"><div>${T(k+".i"+i+".title",it[0],"h3","h2 sm")}${T(k+".i"+i+".text",it[1],"p","lead")}</div>${ph(it[2])}</div>`).join("")}</div>${s.after?`<p style="margin-top:8px">${T(k+".after",s.after,"span","eb")}</p>`:""}`},
+ impl(s,k){return`${head(s,k)}<div class="g4" style="margin-top:28px">${s.items.map((it,i)=>`<div class="box impl">${T(k+".i"+i+".q",it[0],"span","eb")}${T(k+".i"+i+".a",it[1],"p",/^\[por validar\]/.test(it[1])?"p pv":"p")}</div>`).join("")}</div>${s.link?`<div style="margin-top:24px">${lnk(k+".link",s.link)}</div>`:""}`},
+ layers(s,k){const b=s.base,t=s.team;return`${head(s,k)}<div class="layers">
+  <div class="box layer">${T(k+".b.eb",b.eb,"span","eb")}${T(k+".b.title",b.title,"h3","h3")}${T(k+".b.text",b.text,"p","p")}<div class="sols">${b.sols.map(x=>`<a class="tag" href="#${x}"><span class="dot ${x}"></span>${esc(SOL[x][0]+" · "+SOL[x][1])}</a>`).join("")}</div>${lnk(k+".b.link",b.link)}</div>
+  <div class="plus" aria-hidden="true">+</div>
+  <div class="box layer">${T(k+".t.eb",t.eb,"span","eb")}${T(k+".t.title",t.title,"h3","h3")}<div class="svc">${t.items.map((x,i)=>`<div>${T(k+".t.i"+i+".title",x[0],"div","h4")}${T(k+".t.i"+i+".text",x[1],"p","p")}${lnk(k+".t.i"+i+".link",x[2])}</div>`).join("")}</div></div></div>`},
+ cases(s,k){return`<div class="g2" style="align-items:stretch">${s.items.map((it,i)=>`<div class="box casecard">${ph("LOGO · cliente","light")}<span class="tag"><span class="dot ${it.sol}"></span>${esc(SOL[it.sol][0]+" · "+SOL[it.sol][1])}</span>${T(k+".i"+i+".title",it.title,"h3","h3")}<div class="kv kv2">${it.facts.map((f,j)=>`<div>${T(k+".i"+i+".f"+j+".k",f[0],"span","k")}${T(k+".i"+i+".f"+j+".v",f[1],"div","")}</div>`).join("")}</div><div class="kv">${it.metrics.map((m,j)=>`<div><div class="metric">${esc(m[0])}</div>${T(k+".i"+i+".m"+j,m[1],"span","k")}</div>`).join("")}</div>${lnk(k+".i"+i+".link",it.link)}</div>`).join("")}</div>`},
+ nda(s,k){return`${head(s,k)}<div class="tbl"><table><thead><tr>${s.cols.map((c,i)=>`<th>${T(k+".h"+i,c)}</th>`).join("")}</tr></thead><tbody>${s.rows.map((r,i)=>`<tr>${r.map((c,j)=>`<td>${T(k+".r"+i+".c"+j,c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`},
+ contact(s,k){return`${T(k+".eb","Contacto","span","eb")}${T(k+".title","¿Lo vemos aplicado a tu red?","h1","h1")}${T(k+".text","Elige día y hora para una llamada o, si lo prefieres, escríbenos.","p","lead")}
+  <div class="g2" style="align-items:start;margin-top:12px">
+   <div><div class="box" style="background:var(--band)"><div class="stack" style="gap:8px">${T(k+".mail","info@qwi-ti.com","div","h4")}${T(k+".tel","+34 911 836 240","div","h4")}${T(k+".dir","C/ Las Fábricas, 8 · Edificio Antares, 1-07 · 28923 Alcorcón (Madrid)","div","p")}</div><div class="btns" style="margin-top:16px"><a class="btn" href="#">${T(k+".cal.btn","Agendar llamada")}</a></div><span class="note" style="margin:12px 0 0">[ Abre el calendario · herramienta por confirmar ]</span></div><div class="map">MAPA · ubicación de la oficina</div></div>
+   <div class="form">
+    ${[["Nombre y empresa",0],["Email",0],["Motivo","Ver una solución aplicada a mi red ▾"],["Solución de interés","Kumu · Olai · Hiki · Mailuna · Aún no lo sé ▾"],["Mensaje","ta"]].map((f,i)=>`<div class="field">${T(k+".f"+i,f[0])}<div class="in-ph ${f[1]==="ta"?"ta":""}">${f[1]&&f[1]!=="ta"?esc(f[1]):""}</div></div>`).join("")}
+    <span class="p" style="font-size:12.5px">${T(k+".motivos","Motivos: Ver una solución aplicada a mi red · Tengo un reto nuevo · Soporte de una aplicación existente · Prueba de concepto · Otro")}</span>
+    <div class="btns"><a class="btn" href="#">${T(k+".send","Enviar")}</a></div>
+    ${T(k+".legal","He leído y acepto la política de privacidad.","span","p")}
+   </div></div>`}
+};
+
+function render(){
+ const pg=PAGES[P];const out=[];
+ for(const s of pg.secs){
+  if(s.type==="subnav"){out.push(`<div class="subnav"><div class="in"><b><span class="dot ${s.dot}"></span>${esc(s.name)}</b>${s.items.map(x=>`<span>${esc(x)}</span>`).join("")}<span class="sp"></span><a class="btn" href="#contacto">Agendar llamada</a></div></div>`);continue}
+  if(s.type==="anchors"){out.push(`<nav class="anchors" aria-label="Servicios"><div class="in"><span class="lbl2">En esta página</span>${s.items.map(a=>`<a href="#${a[0]}" data-a="${a[0]}">${esc(a[1])}</a>`).join("")}</div></nav>`);continue}
+  if(s.type==="image"){out.push(`<section class="sec tight"><div class="in">${R.image(s)}</div></section>`);continue}
+  const k=s.id;
+  SECN[P+"."+k]=String(s.note||"").replace(/^\[\s*|\s*\]$/g,"").split(" · ")[0]||s.eb||s.title||k;
+  out.push(`<section class="sec ${s.band?"band":""} ${s.tight?"tight":""}" id="s-${esc(k)}" data-sec="${esc(P+"."+k)}"${s.flush?' style="padding-top:0"':""}><div class="in"><button type="button" class="secfb" data-fb="${esc(P+"."+k)}" data-uncommentable>💬 Feedback<span class="n"></span></button>${s.note?`<span class="note">${esc(s.note)}</span>`:""}${R[s.type](s,k)}</div></section>`);
+ }
+ document.getElementById("page").innerHTML=out.join("");
+ document.title=(pg.title||"")+" · Wireframes web Qwi";
+ document.querySelectorAll(".nav a.top").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+P));
+ decorate();
+}
+
+/* ---------- Navegación ---------- */
+const sel=document.getElementById("pageSel");
+const ORDER=["inicio","servicios","soluciones","kumu","olai","hiki","mailuna","casos-de-exito","ficha-caso","nosotros","contacto"];
+(function(){let html="",g=null;for(const id of ORDER){const p=PAGES[id];const gg=p.group||"";if(gg!==g){if(g!==null&&g!=="")html+="</optgroup>";if(gg)html+=`<optgroup label="${esc(gg)}">`;g=gg}html+=`<option value="${id}">${esc(p.title)}</option>`}if(g)html+="</optgroup>";sel.innerHTML=html})();
+sel.addEventListener("change",()=>{location.hash=sel.value});
+const ALIAS={"software-a-medida":"servicios-software","soporte-aplicaciones":"servicios-soporte","como-trabajamos":"servicios-como","servicios-soluciones":"soluciones"};
+const ANCHORS={"servicios-software":"software","servicios-soporte":"soporte","servicios-poc":"poc","servicios-como":"como"};
+const reduceMotion=()=>{try{return matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){return false}};
+function route(){let h=(location.hash||"").slice(1);h=ALIAS[h]||h;let id,anchor=null;
+ if(ANCHORS[h]){id="servicios";anchor=ANCHORS[h]}else id=PAGES[h]?h:"inicio";
+ const changed=id!==P||!document.getElementById("page").children.length;P=id;sel.value=id;
+ if(changed){render();if(!anchor)window.scrollTo(0,0)}
+ if(anchor){const go=()=>{const t=document.getElementById("s-"+anchor);if(!t)return;const off=(document.querySelector(".rbar")?.offsetHeight||44)+(document.querySelector(".anchors")?.offsetHeight||0);window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-off,behavior:changed||reduceMotion()?"auto":"smooth"})};if(changed){requestAnimationFrame(go);setTimeout(go,250)}else go()}
+ else if(!changed&&id==="servicios"&&h==="servicios")window.scrollTo({top:0,behavior:reduceMotion()?"auto":"smooth"});
+ document.getElementById("mnav").classList.remove("open");document.getElementById("menuBtn").setAttribute("aria-expanded","false");markAnchor()}
+function markAnchor(){const links=document.querySelectorAll(".anchors a[data-a]");if(!links.length)return;const off=(document.querySelector(".rbar")?.offsetHeight||44)+80;let cur=null;
+ for(const a of links){const t=document.getElementById("s-"+ANCHORS[a.dataset.a]);if(t&&t.getBoundingClientRect().top<=off)cur=a}
+ links.forEach(a=>a.classList.toggle("on",a===cur))}
+let _raf=0;window.addEventListener("scroll",()=>{if(_raf)return;_raf=requestAnimationFrame(()=>{_raf=0;markAnchor()})},{passive:true});
+function setRbar(){const r=document.querySelector(".rbar");if(r)document.documentElement.style.setProperty("--rbar",r.offsetHeight+"px")}
+window.addEventListener("resize",setRbar);setRbar();
+window.addEventListener("hashchange",route);
+document.getElementById("menuBtn").addEventListener("click",e=>{const m=document.getElementById("mnav");const o=m.classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",String(o))});
+
+/* ---------- Revisión ---------- */
+const revSw=document.getElementById("revSw"),swapSw=document.getElementById("swapSw");
+function setReview(){document.body.classList.toggle("review",revSw.checked)}
+revSw.addEventListener("change",setReview);setReview();
+swapSw.addEventListener("change",decorate);
+try{if(localStorage.getItem("qwi-hint-v08")==="1")document.getElementById("hint").hidden=true}catch(e){}
+document.getElementById("hintX").addEventListener("click",()=>{document.getElementById("hint").hidden=true;try{localStorage.setItem("qwi-hint-v08","1")}catch(e){}});
+
+/* Bienvenida */
+const welcome=document.getElementById("welcome");
+function showWelcome(){welcome.hidden=false;welcome.scrollTop=0;document.body.style.overflow="hidden";document.getElementById("wStart").focus()}
+function hideWelcome(){welcome.hidden=true;document.body.style.overflow="";try{localStorage.setItem("qwi-welcome-v08","1")}catch(e){}}
+let seen=false;try{seen=localStorage.getItem("qwi-welcome-v08")==="1"}catch(e){}
+if(!seen)showWelcome();
+document.getElementById("helpBtn").addEventListener("click",showWelcome);
+document.getElementById("wStart").addEventListener("click",()=>{hideWelcome();revSw.checked=true;setReview()});
+document.getElementById("wFb").addEventListener("click",()=>{hideWelcome();openFeedback("general")});
+document.getElementById("fbBtn").addEventListener("click",()=>openFeedback(P));
+
+document.addEventListener("click",e=>{
+ const fbb=e.target.closest(".secfb");
+ if(fbb){e.preventDefault();e.stopPropagation();openFeedback(fbb.dataset.fb);return}
+ const t=e.target.closest(".t");
+ if(t&&revSw.checked&&document.getElementById("page").contains(t)){e.preventDefault();e.stopPropagation();openFor(t.dataset.t);return}
+ const a=e.target.closest('a[href="#"]');if(a&&!revSw.checked)e.preventDefault();
+},true);
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){if(!welcome.hidden)hideWelcome();else closeDrawer()}
+ if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("t")&&revSw.checked){e.preventDefault();openFor(e.target.dataset.t)}
+});
+
+let FLASH=null;const flash=(m,t)=>{FLASH={m,t,until:Date.now()+5000}};const showFlash=(m,msg)=>{if(FLASH&&FLASH.m===m&&Date.now()<FLASH.until){msg.className="msg ok";msg.textContent=FLASH.t}};
+let FB=[],FBLOADED=false,TAB="textos";const SECN={};
+let ALL=[],NAMES={},ME=null,CAN_ADMIN=false,DB=null,COMMENTS=null,USER=null,READONLY=false,LOADED=false,LOAD_ERR="";
+const byT=()=>{const m={};for(const p of ALL){(m[p.t]=m[p.t]||[]).push(p)}return m};
+function latestOpen(list){return(list||[]).find(p=>p.estado!=="descartada")}
+function decorate(){
+ const m=byT();
+ document.querySelectorAll("#page .t").forEach(el=>{
+  const id=el.dataset.t;const list=m[id];
+  if(list&&list.length)el.dataset.n=list.length;else delete el.dataset.n;
+  const lp=latestOpen(list);
+  if(swapSw.checked&&lp){el.textContent=lp.propuesta;el.classList.add("swapped")}else{if(el.classList.contains("swapped")||el.textContent!==TXT[id])el.textContent=TXT[id]??el.textContent;el.classList.remove("swapped")}
+ });
+ const fm={};for(const f of FB){fm[f.sec]=(fm[f.sec]||0)+1}
+ document.querySelectorAll("#page .secfb").forEach(b=>{const n=fm[b.dataset.fb]||0;b.querySelector(".n").textContent=n?String(n):"";b.closest(".sec")?.classList.toggle("has-fb",n>0)});
+ document.getElementById("allN").textContent=ALL.length+FB.length;
+}
+
+/* Panel */
+const drawer=document.getElementById("drawer"),dBody=document.getElementById("dBody"),scrim=document.getElementById("scrim");
+let CUR=null,MODE=null,FILTER="todas";
+function openDrawer(){drawer.hidden=false;scrim.hidden=false}
+function closeDrawer(){drawer.hidden=true;scrim.hidden=true;document.querySelectorAll(".t.sel").forEach(x=>x.classList.remove("sel"));CUR=null;MODE=null}
+document.getElementById("dClose").addEventListener("click",closeDrawer);scrim.addEventListener("click",closeDrawer);
+document.getElementById("allBtn").addEventListener("click",()=>{MODE="all";CUR=null;document.querySelectorAll(".t.sel").forEach(x=>x.classList.remove("sel"));drawList();openDrawer()});
+
+function pageOf(id){return id.split(".")[0]}
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function fmtDate(s){try{return new Date(s).toLocaleDateString("es-ES",{day:"numeric",month:"short"})+" "+new Date(s).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})}catch(e){return""}}
+
+function propCard(p,showWhere){
+ const c=el("div","prop "+(p.estado||"pendiente"));
+ const meta=el("div","meta");
+ meta.append(el("span","",p.autor||"Alguien"),el("span","",fmtDate(p.creado)),el("span","st "+(p.estado||"pendiente"),p.estado||"pendiente"));
+ c.append(meta);
+ if(showWhere){const w=el("div","where");w.append(el("span","",(PAGES[pageOf(p.t)]?.title||"")+" · antes: "));w.append(el("i","",String(p.original||"").slice(0,120)));c.append(w)}
+ c.append(el("div","txt",p.propuesta));
+ if(p.nota)c.append(el("div","nt","Nota: "+p.nota));
+ const acts=el("div","acts");
+ if(showWhere){const b=el("button","","Ver en la página");b.type="button";b.addEventListener("click",()=>jumpTo(p.t));acts.append(b)}
+ if(DB&&!READONLY&&CAN_ADMIN){for(const [st,lab] of [["aceptada","Aceptar"],["descartada","Descartar"],["pendiente","Pendiente"]]){if((p.estado||"pendiente")===st)continue;const b=el("button","",lab);b.type="button";b.addEventListener("click",()=>setEstado(p,st,b));acts.append(b)}}
+ if(acts.children.length)c.append(acts);
+ return c;
+}
+async function setEstado(p,st,b){b.disabled=true;try{await DB.collection("propuestas").doc(p.id).update({estado:st})}catch(e){b.disabled=false;b.textContent="No se pudo cambiar"}}
+async function retirar(p,b){b.disabled=true;try{await DB.collection("propuestas").doc(p.id).delete()}catch(e){b.disabled=false;b.textContent="No se pudo retirar"}}
+
+function jumpTo(id){const pg=pageOf(id);if(P!==pg)location.hash=pg;setTimeout(()=>{const t=document.querySelector(`#page .t[data-t="${CSS.escape(id)}"]`);if(t){t.scrollIntoView({block:"center"});openFor(id)}},60)}
+
+function openFor(id){
+ MODE="one";CUR=id;
+ document.querySelectorAll(".t.sel").forEach(x=>x.classList.remove("sel"));
+ const t=document.querySelector(`#page .t[data-t="${CSS.escape(id)}"]`);if(t)t.classList.add("sel");
+ drawOne();openDrawer();
+}
+function drawOne(){
+ const id=CUR;dBody.replaceChildren();
+ document.getElementById("dTitle").textContent="Proponer un cambio";
+ const w=el("div");w.append(el("span","lbl","Texto actual · "+(PAGES[pageOf(id)]?.title||"")),el("div","orig",TXT[id]??""));dBody.append(w);
+ const list=byT()[id]||[];
+ if(DB&&!READONLY){
+  const f=document.createElement("form");f.className="stack";f.style.gap="12px";
+  const l1=el("label","lbl","Tu propuesta");l1.htmlFor="propTxt";
+  const ta=document.createElement("textarea");ta.id="propTxt";ta.value=TXT[id]??"";ta.maxLength=4000;
+  const l2=el("label","lbl","Nota (opcional): por qué lo cambiarías");l2.htmlFor="propNota";
+  const nota=document.createElement("input");nota.className="txt";nota.id="propNota";nota.maxLength=1000;
+  const acts=el("div","dactions");const b=el("button","btn","Enviar propuesta");b.type="submit";const msg=el("span","msg");msg.setAttribute("role","status");acts.append(b,msg);showFlash("one:"+id,msg);
+  const who=nameField();f.append(who.el,l1,ta,l2,nota,acts);
+  f.addEventListener("submit",async e=>{e.preventDefault();const v=ta.value.trim();
+   if(!v){msg.className="msg err";msg.textContent="Escribe el texto que propones.";return}
+   if(v===(TXT[id]??"").trim()&&!nota.value.trim()){msg.className="msg err";msg.textContent="El texto es igual al actual. Cámbialo o añade una nota.";return}
+   const nm=who.get();if(!nm){msg.className="msg err";msg.textContent="Escribe tu nombre para firmar la propuesta.";return}
+   b.disabled=true;msg.className="msg";msg.textContent="Enviando…";
+   try{await DB.collection("propuestas").add({t:id,pagina:pageOf(id),original:TXT[id]??"",propuesta:v,nota:nota.value.trim(),autor:ME,creado:new Date().toISOString(),estado:"pendiente"});
+    flash("one:"+id,"Propuesta enviada.");msg.className="msg ok";msg.textContent="Propuesta enviada.";nota.value="";b.disabled=false}
+   catch(err){b.disabled=false;if(err&&err.code==="invalid_argument"){READONLY=true;drawOne()}else if(err&&err.code==="quota_exceeded"){msg.className="msg err";msg.textContent="No caben más propuestas. Avisa a Esamesa."}else{msg.className="msg err";msg.textContent="No se pudo enviar. Inténtalo de nuevo en unos segundos."}}
+  });
+  dBody.append(f);
+ }else{
+  const box=el("div","stack");box.style.gap="10px";
+  box.append(el("p","empty",LOAD_ERR||"No se pueden guardar propuestas ahora mismo."));
+  if(COMMENTS){const b=el("button","btn","Comentar este texto");b.type="button";const m=el("span","msg");b.addEventListener("click",async()=>{const t=document.querySelector(`#page .t[data-t="${CSS.escape(id)}"]`);if(!t)return;closeDrawer();try{const r=await COMMENTS.openComposer({element:t});if(!r.opened){}}catch(e){}});box.append(b,m)}
+  else box.append(el("p","empty","Vuelve a intentarlo en unos minutos o avisa a Esamesa."));
+  dBody.append(box);
+ }
+ const h=el("div");h.append(el("span","lbl",list.length?`Propuestas para este texto (${list.length})`:"Propuestas para este texto"));
+ const ps=el("div","props");if(list.length)list.forEach(p=>ps.append(propCard(p,false)));else ps.append(el("p","empty","Todavía no hay propuestas para este texto."));
+ h.append(ps);dBody.append(h);
+}
+/* Feedback libre */
+const FBTYPES=[["contenido","Contenido"],["estructura","Estructura u orden"],["diseno","Imagen o diseño"],["duda","Duda"],["falta","Falta algo"],["otro","Otro"]];
+const tyLabel=t=>(FBTYPES.find(x=>x[0]===t)||[0,"Otro"])[1];
+let FBSEC=null;
+function secLabel(sec){if(sec==="general")return"Toda la web";const [pg,k]=sec.split(".");const pt=PAGES[pg]?.title||pg;if(!k)return pt+" · página completa";return pt+" · "+(SECN[sec]||k)}
+function openFeedback(sec){MODE="fb";FBSEC=sec;CUR=null;document.querySelectorAll(".t.sel").forEach(x=>x.classList.remove("sel"));drawFb();openDrawer();setTimeout(()=>document.getElementById("fbTxt")?.focus(),30)}
+function fbCard(f,showWhere){
+ const c=el("div","prop "+(f.estado||"pendiente"));
+ const meta=el("div","meta");
+ meta.append(el("span","",f.autor||"Alguien"),el("span","",fmtDate(f.creado)),el("span","ty",tyLabel(f.tipo)),el("span","st "+(f.estado||"pendiente"),f.estado==="aceptada"?"resuelto":f.estado==="descartada"?"descartado":"pendiente"));
+ c.append(meta);
+ if(showWhere)c.append(el("div","where",f.seccion||secLabel(f.sec)));
+ c.append(el("div","txt",f.texto));
+ const acts=el("div","acts");
+ if(showWhere&&f.sec!=="general"){const b=el("button","","Ver en la página");b.type="button";b.addEventListener("click",()=>jumpSec(f.sec));acts.append(b)}
+ if(DB&&!READONLY&&CAN_ADMIN){for(const [st,lab] of [["aceptada","Marcar resuelto"],["descartada","Descartar"],["pendiente","Pendiente"]]){if((f.estado||"pendiente")===st)continue;const b=el("button","",lab);b.type="button";b.addEventListener("click",async()=>{b.disabled=true;try{await DB.collection("feedback").doc(f.id).update({estado:st})}catch(e){b.disabled=false;b.textContent="No se pudo cambiar"}});acts.append(b)}}
+ if(acts.children.length)c.append(acts);
+ return c;
+}
+function jumpSec(sec){const [pg,k]=sec.split(".");if(P!==pg)location.hash=pg;setTimeout(()=>{if(k){const s=document.getElementById("s-"+k);if(s)s.scrollIntoView({block:"start"})}else window.scrollTo(0,0);openFeedback(sec)},80)}
+function drawFb(){
+ const sec=FBSEC;dBody.replaceChildren();
+ document.getElementById("dTitle").textContent="Dejar feedback";
+ const w=el("div");w.append(el("span","lbl","Sobre"),el("div","orig",secLabel(sec)));
+ if(sec!=="general"){const sw=el("div","filters");sw.style.marginTop="8px";const pg=sec.split(".")[0];
+  for(const [v,l] of [[sec,sec.includes(".")?"Esta sección":"Esta página"],...(sec.includes(".")?[[pg,"Toda la página"]]:[]),["general","Toda la web"]]){const b=el("button","",l);b.type="button";b.setAttribute("aria-pressed",String(v===sec));b.addEventListener("click",()=>{const keep=document.getElementById("fbTxt")?.value||"";FBSEC=v;drawFb();const t2=document.getElementById("fbTxt");if(t2)t2.value=keep});sw.append(b)}
+  w.append(sw)}
+ dBody.append(w);
+ if(DB&&!READONLY){
+  const f=document.createElement("form");f.className="stack";f.style.gap="12px";
+  const tl=el("span","lbl","Tipo de comentario");
+  const ty=el("div","types");ty.setAttribute("role","radiogroup");ty.setAttribute("aria-label","Tipo de comentario");
+  FBTYPES.forEach(([v,l],i)=>{const lab=document.createElement("label");const r=document.createElement("input");r.type="radio";r.name="fbty";r.value=v;if(i===0)r.checked=true;lab.append(r,el("span","",l));ty.append(lab)});
+  const l1=el("label","lbl","Tu comentario");l1.htmlFor="fbTxt";
+  const ta=document.createElement("textarea");ta.id="fbTxt";ta.maxLength=4000;ta.placeholder="Lo que cambiarías, lo que sobra o falta, una duda…";
+  const acts=el("div","dactions");const b=el("button","btn","Enviar feedback");b.type="submit";const msg=el("span","msg");msg.setAttribute("role","status");acts.append(b,msg);showFlash("fb:"+sec,msg);
+  const who=nameField();f.append(who.el,tl,ty,l1,ta,acts);
+  f.addEventListener("submit",async e=>{e.preventDefault();const v=ta.value.trim();
+   if(!v){msg.className="msg err";msg.textContent="Escribe tu comentario.";return}
+   const nm=who.get();if(!nm){msg.className="msg err";msg.textContent="Escribe tu nombre para firmar el comentario.";return}
+   b.disabled=true;msg.className="msg";msg.textContent="Enviando…";
+   const tipo=(f.querySelector('input[name="fbty"]:checked')||{}).value||"otro";
+   try{await DB.collection("feedback").add({sec:FBSEC,pagina:FBSEC==="general"?"general":FBSEC.split(".")[0],seccion:secLabel(FBSEC),tipo,texto:v,autor:ME,creado:new Date().toISOString(),estado:"pendiente"});
+    ta.value="";flash("fb:"+FBSEC,"Gracias, feedback enviado.");msg.className="msg ok";msg.textContent="Gracias, feedback enviado.";b.disabled=false}
+   catch(err){b.disabled=false;if(err&&err.code==="invalid_argument"){READONLY=true;drawFb()}else if(err&&err.code==="quota_exceeded"){msg.className="msg err";msg.textContent="No cabe más feedback. Avisa a Esamesa."}else{msg.className="msg err";msg.textContent="No se pudo enviar. Inténtalo de nuevo en unos segundos."}}
+  });
+  dBody.append(f);
+ }else{
+  dBody.append(el("p","empty",LOAD_ERR||"No se puede guardar feedback ahora mismo."));
+ }
+ if(COMMENTS&&sec!=="general"){const o=el("div","or");o.append(document.createTextNode("¿Prefieres señalar un punto concreto? "));const b=el("button","","Comentar sobre la página");b.type="button";
+  b.addEventListener("click",async()=>{const k=FBSEC.split(".")[1];const t=k?document.getElementById("s-"+k):document.getElementById("page");if(!t)return;closeDrawer();try{await COMMENTS.openComposer({element:t})}catch(e){}});o.append(b);dBody.append(o)}
+ const list=FB.filter(x=>x.sec===sec);
+ const h=el("div");h.append(el("span","lbl",list.length?`Feedback aquí (${list.length})`:"Feedback aquí"));
+ const ps=el("div","props");if(list.length)list.forEach(x=>ps.append(fbCard(x,false)));else ps.append(el("p","empty","Todavía no hay feedback aquí."));
+ h.append(ps);dBody.append(h);
+}
+
+function drawList(){
+ dBody.replaceChildren();document.getElementById("dTitle").textContent=`Revisión (${ALL.length+FB.length})`;
+ const tabs=el("div","tabs");tabs.setAttribute("role","tablist");
+ for(const [k,l] of [["textos",`Textos propuestos (${ALL.length})`],["feedback",`Feedback (${FB.length})`]]){const b=el("button","",l);b.type="button";b.setAttribute("role","tab");b.setAttribute("aria-selected",String(TAB===k));b.addEventListener("click",()=>{TAB=k;drawList()});tabs.append(b)}
+ dBody.append(tabs);
+ if(TAB==="feedback"){drawFbList();return}
+ const fl=el("div","filters");
+ for(const [k,l] of [["todas","Todas"],["pendiente","Pendientes"],["aceptada","Aceptadas"],["descartada","Descartadas"],["pagina","Esta página"]]){const b=el("button","",l);b.type="button";b.setAttribute("aria-pressed",String(FILTER===k));b.addEventListener("click",()=>{FILTER=k;drawList()});fl.append(b)}
+ dBody.append(fl);
+ if(!LOADED){dBody.append(el("p","empty",LOAD_ERR||"Cargando propuestas…"));return}
+ let list=ALL.slice();
+ if(FILTER==="pagina")list=list.filter(p=>p.pagina===P);else if(FILTER!=="todas")list=list.filter(p=>(p.estado||"pendiente")===FILTER);
+ if(!list.length){dBody.append(el("p","empty",ALL.length?"No hay propuestas con este filtro.":"Todavía no hay propuestas. Activa el modo revisión y haz clic en cualquier texto para proponer el primer cambio."));return}
+ let g=null;const wrap=el("div","props");
+ for(const p of list.slice().sort((a,b)=>ORDER.indexOf(a.pagina)-ORDER.indexOf(b.pagina)||String(b.creado).localeCompare(String(a.creado)))){
+  if(p.pagina!==g){g=p.pagina;wrap.append(el("div","grp",PAGES[g]?.title||g))}
+  wrap.append(propCard(p,true));
+ }
+ dBody.append(wrap);
+}
+function drawFbList(){
+ const fl=el("div","filters");
+ for(const [k,l] of [["todas","Todo"],["pendiente","Pendiente"],["aceptada","Resuelto"],["descartada","Descartado"],["pagina","Esta página"]]){const b=el("button","",l);b.type="button";b.setAttribute("aria-pressed",String(FILTER===k));b.addEventListener("click",()=>{FILTER=k;drawList()});fl.append(b)}
+ dBody.append(fl);
+ const nb=el("button","btn o","+ Dejar feedback");nb.type="button";nb.style.alignSelf="flex-start";nb.addEventListener("click",()=>openFeedback(P));dBody.append(nb);
+ if(!FBLOADED){dBody.append(el("p","empty",LOAD_ERR||"Cargando feedback…"));return}
+ let list=FB.slice();
+ if(FILTER==="pagina")list=list.filter(f=>f.pagina===P);else if(FILTER!=="todas")list=list.filter(f=>(f.estado||"pendiente")===FILTER);
+ if(!list.length){dBody.append(el("p","empty",FB.length?"No hay feedback con este filtro.":"Todavía no hay feedback. Usa el botón «Feedback» de cualquier sección o «Dejar feedback» arriba."));return}
+ const ord=p=>p==="general"?-1:ORDER.indexOf(p);
+ let g=null;const wrap=el("div","props");
+ for(const f of list.sort((a,b)=>ord(a.pagina)-ord(b.pagina)||String(b.creado).localeCompare(String(a.creado)))){
+  if(f.pagina!==g){g=f.pagina;wrap.append(el("div","grp",g==="general"?"Toda la web":(PAGES[g]?.title||g)))}
+  wrap.append(fbCard(f,true));
+ }
+ dBody.append(wrap);
+}
+function refreshDrawer(){if(drawer.hidden)return;if(MODE==="fb"){const ta=document.getElementById("fbTxt");const keep=ta?ta.value:"";const foc=document.activeElement===ta;const ty=(dBody.querySelector('input[name="fbty"]:checked')||{}).value;drawFb();const t2=document.getElementById("fbTxt");if(t2){t2.value=keep;if(foc)t2.focus()}if(ty){const r=dBody.querySelector(`input[name="fbty"][value="${ty}"]`);if(r)r.checked=true}return}if(MODE==="one"&&CUR){const ta=document.getElementById("propTxt");const keep=ta?{v:ta.value,n:document.getElementById("propNota").value,f:document.activeElement&&document.activeElement.id}:null;drawOne();if(keep){const t2=document.getElementById("propTxt");if(t2){t2.value=keep.v;document.getElementById("propNota").value=keep.n;if(keep.f)document.getElementById(keep.f)?.focus()}}}else if(MODE==="all")drawList()}
+
+/* ---------- Datos compartidos (Supabase) ---------- */
+function nameField(){
+ const w=el("div","who");const l=el("label","lbl","Tu nombre");l.htmlFor="whoName";
+ const i=document.createElement("input");i.className="txt";i.id="whoName";i.maxLength=80;i.autocomplete="name";i.placeholder="Nombre y empresa";i.value=ME||"";
+ w.append(l,i);
+ return{el:w,get(){const v=i.value.trim();if(v){ME=v;try{localStorage.setItem("qwi-nombre",v)}catch(e){}}return v}};
+}
+let SB=null;
+async function load(name){
+ const{data,error}=await SB.from(name).select("*").order("creado",{ascending:false}).limit(2000);
+ if(error)throw error;
+ if(name==="propuestas"){ALL=data||[];LOADED=true}else{FB=data||[];FBLOADED=true}
+ decorate();refreshDrawer();
+}
+function makeDB(){
+ return{collection(name){return{
+  async add(obj){const{error}=await SB.from(name).insert(obj);if(error)throw error;setTimeout(()=>load(name).catch(()=>{}),0)},
+  doc(id){return{
+   async update(obj){const{error}=await SB.from(name).update(obj).eq("id",id);if(error)throw error;setTimeout(()=>load(name).catch(()=>{}),0)}}}}}};
+}
+async function boot(){
+ route();
+ try{ME=localStorage.getItem("qwi-nombre")||null}catch(e){}
+ try{CAN_ADMIN=new URLSearchParams(location.search).has("equipo")}catch(e){}
+ const cfg=window.QWI_SUPABASE||{};
+ if(!cfg.url||!cfg.anonKey||!window.supabase){LOADED=true;FBLOADED=true;LOAD_ERR="Las propuestas no están disponibles: falta configurar la base de datos.";decorate();return}
+ SB=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:false}});
+ DB=makeDB();
+ const fail=()=>{LOADED=true;FBLOADED=true;LOAD_ERR="No se pueden cargar las propuestas ahora mismo. Recarga la página en unos segundos.";refreshDrawer()};
+ await Promise.all([load("propuestas"),load("feedback")]).catch(fail);
+ try{SB.channel("revision").on("postgres_changes",{event:"*",schema:"public",table:"propuestas"},()=>load("propuestas").catch(()=>{})).on("postgres_changes",{event:"*",schema:"public",table:"feedback"},()=>load("feedback").catch(()=>{})).subscribe()}catch(e){}
+ setInterval(()=>{if(!document.hidden){load("propuestas").catch(()=>{});load("feedback").catch(()=>{})}},60000);
+}
+boot();
+</script>
+</body>
+</html>
