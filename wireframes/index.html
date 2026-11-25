@@ -259,6 +259,13 @@ textarea:focus,input.txt:focus{outline:2px solid var(--ink);outline-offset:0}
 .prop .txt{white-space:pre-wrap}
 .prop .nt{font-size:12.5px;color:var(--muted);white-space:pre-wrap}
 .prop .acts{display:flex;gap:6px;flex-wrap:wrap}
+.thread{display:flex;flex-direction:column;gap:8px;border-left:2px solid var(--line);margin:2px 0 0 2px;padding-left:10px}
+.reply{display:flex;flex-direction:column;gap:2px;font-size:13px}
+.reply .meta{font-size:11.5px}
+.reply .txt{white-space:pre-wrap}
+.rform{display:flex;flex-direction:column;gap:6px}
+.rform textarea{min-height:64px}
+.rform .row2{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .prop .acts button,.mini{background:var(--paper);border:1px solid var(--line-2);border-radius:3px;padding:3px 8px;font-size:12px;cursor:pointer}
 .st{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;border-radius:2px;padding:1px 6px;border:1px solid var(--line-2)}
 .st.aceptada{color:var(--ok);border-color:var(--ok)}
@@ -354,21 +361,21 @@ body{margin:0}
 <div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="wTitle" data-uncommentable hidden>
   <div class="wrap">
     <div>
-      <span class="kick">Qwi · Nueva web · Wireframes v0.8 · 11 páginas</span>
-      <h1 id="wTitle">Revisa la nueva web y dinos qué cambiarías</h1>
-      <p class="lead">Esto es la estructura y los textos de la web, sin diseño final. Navega por las páginas como si fuera la web real y deja tus propuestas donde las veas. No hace falta saber nada técnico: todo se guarda solo y lo vemos todo el equipo.</p>
+      <span class="kick">Para el equipo de Qwi · Nueva web · Wireframes v0.8 · 11 páginas</span>
+      <h1 id="wTitle">Esta es la estructura de vuestra nueva web. Contadnos qué cambiaríais.</h1>
+      <p class="lead">Antes de pasar al diseño visual, queremos cerrar con vosotros qué cuenta cada página y cómo lo cuenta. Navegad como si fuera la web real: los textos son los definitivos que proponemos, el aspecto todavía no. Todo lo que escribáis se guarda solo, firmado con vuestro nombre, y lo vemos tanto vuestro equipo como el de Esamesa.</p>
     </div>
     <div class="wsteps">
-      <div class="wstep"><span class="num">01 · Textos</span><h2>Propón un texto</h2><p>Haz clic en cualquier título, párrafo o botón y escribe cómo lo dirías tú. Puedes añadir una nota explicando el porqué.</p>
+      <div class="wstep"><span class="num">01 · Textos</span><h2>Propón un texto</h2><p>Haz clic en cualquier título, párrafo o botón y escribe cómo lo diríais en Qwi. Añade una nota si quieres explicar el porqué o corregir un dato técnico.</p>
         <div class="wdemo" aria-hidden="true"><span class="hl">¿Cuál es el estado real de tu red?</span><span class="ln" style="width:90%"></span><span class="ln" style="width:70%"></span></div></div>
       <div class="wstep"><span class="num">02 · Feedback</span><h2>Comenta cualquier cosa</h2><p>Cada sección tiene un botón <b>Feedback</b>: el orden, lo que sobra o falta, una imagen, una duda. Para algo general de la web, usa <b>Dejar feedback</b> arriba.</p>
         <div class="wdemo" aria-hidden="true"><span class="fbb">💬 Feedback sobre esta sección</span><span class="ln" style="width:80%"></span><span class="ln" style="width:55%"></span></div></div>
-      <div class="wstep"><span class="num">03 · Seguimiento</span><h2>Mira lo que ya se ha dicho</h2><p>El botón <b>Revisión</b> reúne todas las propuestas y el feedback, por página. Activa <b>Ver propuestas</b> para leer la página con los cambios propuestos.</p>
+      <div class="wstep"><span class="num">03 · Conversación</span><h2>Responde a tus compañeros</h2><p>El botón <b>Revisión</b> reúne todo lo que se ha dicho, por página. Bajo cada propuesta o comentario puedes <b>Responder</b> para estar de acuerdo, matizar o proponer otra versión.</p>
         <div class="wdemo" aria-hidden="true"><span style="font-family:var(--mono);font-size:10px;color:var(--faint)">INICIO</span><span class="ln" style="width:95%"></span><span style="font-family:var(--mono);font-size:10px;color:var(--faint)">KUMU</span><span class="ln" style="width:75%"></span></div></div>
     </div>
     <div class="wlegend">
       <div><span class="sw2" style="background:var(--ph);color:#fff">IMG</span><span>Las <b>cajas grises</b> son fotos, capturas o diagramas que aún no están. Su etiqueta dice qué irá.</span></div>
-      <div><span class="sw2" style="background:#2A2A2A;color:#E8C64A;border:1px solid #444">[ ]</span><span>Lo marcado como <b>[por validar]</b> es un dato que necesitamos que confirméis.</span></div>
+      <div><span class="sw2" style="background:#2A2A2A;color:#E8C64A;border:1px solid #444">[ ]</span><span>Lo marcado como <b>[por validar]</b> es un dato que necesitamos que nos confirméis: plazos, cifras, nombres de clientes…</span></div>
       <div><span class="sw2" style="background:#2A2A2A;color:var(--bar-muted);border:1px solid #444">[ · ]</span><span>Las notas pequeñas entre corchetes encima de cada sección son para orientarse. No saldrán en la web.</span></div>
       <div><span class="sw2" style="background:#E8C64A;color:var(--ink)">ON</span><span>Con <b>Modo revisión</b> activo, los clics proponen cambios. Desactívalo para navegar con los botones de la web.</span></div>
     </div>
@@ -766,7 +773,7 @@ document.getElementById("allBtn").addEventListener("click",()=>{MODE="all";CUR=n
 
 function pageOf(id){return id.split(".")[0]}
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
-function fmtDate(s){try{return new Date(s).toLocaleDateString("es-ES",{day:"numeric",month:"short"})+" "+new Date(s).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})}catch(e){return""}}
+function fmtDate(s){if(!s)return"";try{return new Date(s).toLocaleDateString("es-ES",{day:"numeric",month:"short"})+" "+new Date(s).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})}catch(e){return""}}
 
 function propCard(p,showWhere){
  const c=el("div","prop "+(p.estado||"pendiente"));
@@ -776,6 +783,7 @@ function propCard(p,showWhere){
  if(showWhere){const w=el("div","where");w.append(el("span","",(PAGES[pageOf(p.t)]?.title||"")+" · antes: "));w.append(el("i","",String(p.original||"").slice(0,120)));c.append(w)}
  c.append(el("div","txt",p.propuesta));
  if(p.nota)c.append(el("div","nt","Nota: "+p.nota));
+ c.append(threadEl("propuestas",p.id));
  const acts=el("div","acts");
  if(showWhere){const b=el("button","","Ver en la página");b.type="button";b.addEventListener("click",()=>jumpTo(p.t));acts.append(b)}
  if(DB&&!READONLY&&CAN_ADMIN){for(const [st,lab] of [["aceptada","Aceptar"],["descartada","Descartar"],["pendiente","Pendiente"]]){if((p.estado||"pendiente")===st)continue;const b=el("button","",lab);b.type="button";b.addEventListener("click",()=>setEstado(p,st,b));acts.append(b)}}
@@ -840,6 +848,7 @@ function fbCard(f,showWhere){
  c.append(meta);
  if(showWhere)c.append(el("div","where",f.seccion||secLabel(f.sec)));
  c.append(el("div","txt",f.texto));
+ c.append(threadEl("feedback",f.id));
  const acts=el("div","acts");
  if(showWhere&&f.sec!=="general"){const b=el("button","","Ver en la página");b.type="button";b.addEventListener("click",()=>jumpSec(f.sec));acts.append(b)}
  if(DB&&!READONLY&&CAN_ADMIN){for(const [st,lab] of [["aceptada","Marcar resuelto"],["descartada","Descartar"],["pendiente","Pendiente"]]){if((f.estado||"pendiente")===st)continue;const b=el("button","",lab);b.type="button";b.addEventListener("click",async()=>{b.disabled=true;try{await DB.collection("feedback").doc(f.id).update({estado:st})}catch(e){b.disabled=false;b.textContent="No se pudo cambiar"}});acts.append(b)}}
@@ -924,6 +933,38 @@ function drawFbList(){
 }
 function refreshDrawer(){if(drawer.hidden)return;if(MODE==="fb"){const ta=document.getElementById("fbTxt");const keep=ta?ta.value:"";const foc=document.activeElement===ta;const ty=(dBody.querySelector('input[name="fbty"]:checked')||{}).value;drawFb();const t2=document.getElementById("fbTxt");if(t2){t2.value=keep;if(foc)t2.focus()}if(ty){const r=dBody.querySelector(`input[name="fbty"][value="${ty}"]`);if(r)r.checked=true}return}if(MODE==="one"&&CUR){const ta=document.getElementById("propTxt");const keep=ta?{v:ta.value,n:document.getElementById("propNota").value,f:document.activeElement&&document.activeElement.id}:null;drawOne();if(keep){const t2=document.getElementById("propTxt");if(t2){t2.value=keep.v;document.getElementById("propNota").value=keep.n;if(keep.f)document.getElementById(keep.f)?.focus()}}}else if(MODE==="all")drawList()}
 
+/* ---------- Respuestas (conversación bajo cada propuesta o feedback) ---------- */
+let RESP=[],ROPEN=null;const RDRAFT={};
+function threadEl(tabla,id){
+ const key=tabla+":"+id;
+ const list=RESP.filter(r=>r.ref_tabla===tabla&&r.ref_id===id).sort((a,b)=>String(a.creado).localeCompare(String(b.creado)));
+ const w=el("div","thread");
+ for(const r of list){const d=el("div","reply");const m=el("div","meta");m.append(el("span","",r.autor||"Alguien"),el("span","",fmtDate(r.creado)));d.append(m,el("div","txt",r.texto));w.append(d)}
+ if(!DB){if(!list.length)return el("span");return w}
+ if(ROPEN===key){
+  const f=document.createElement("form");f.className="rform";
+  const ta=document.createElement("textarea");ta.maxLength=2000;ta.placeholder="Escribe tu respuesta…";ta.setAttribute("aria-label","Tu respuesta");ta.value=RDRAFT[key]||"";ta.addEventListener("input",()=>{RDRAFT[key]=ta.value});
+  const nm=document.createElement("input");nm.className="txt";nm.placeholder="Tu nombre";nm.setAttribute("aria-label","Tu nombre");nm.maxLength=80;nm.value=ME||"";
+  const row=el("div","row2");const b=el("button","btn","Responder");b.type="submit";b.style.padding="7px 12px";const cx=el("button","mini","Cancelar");cx.type="button";const msg=el("span","msg");msg.setAttribute("role","status");
+  cx.addEventListener("click",()=>{ROPEN=null;refreshDrawer()});
+  row.append(b,cx,msg);
+  if(!ME)f.append(nm);f.append(ta,row);
+  f.addEventListener("submit",async e=>{e.preventDefault();const v=ta.value.trim();const n=(ME||nm.value.trim());
+   if(!n){msg.className="msg err";msg.textContent="Escribe tu nombre.";return}
+   if(!v){msg.className="msg err";msg.textContent="Escribe tu respuesta.";return}
+   ME=n;try{localStorage.setItem("qwi-nombre",n)}catch(_){}
+   b.disabled=true;msg.className="msg";msg.textContent="Enviando…";
+   try{await DB.collection("respuestas").add({ref_tabla:tabla,ref_id:id,texto:v,autor:n});delete RDRAFT[key];ROPEN=null}
+   catch(err){b.disabled=false;msg.className="msg err";msg.textContent="No se pudo enviar. Inténtalo de nuevo."}
+  });
+  w.append(f);setTimeout(()=>{if(ROPEN===key&&document.activeElement===document.body)ta.focus()},0);
+ }else{
+  const b=el("button","mini",list.length?`Responder (${list.length})`:"Responder");b.type="button";b.style.alignSelf="flex-start";
+  b.addEventListener("click",()=>{ROPEN=key;refreshDrawer()});w.append(b);
+ }
+ return w;
+}
+
 /* ---------- Datos compartidos (Supabase) ---------- */
 function nameField(){
  const w=el("div","who");const l=el("label","lbl","Tu nombre");l.htmlFor="whoName";
@@ -935,7 +976,7 @@ let SB=null;
 async function load(name){
  const{data,error}=await SB.from(name).select("*").order("creado",{ascending:false}).limit(2000);
  if(error)throw error;
- if(name==="propuestas"){ALL=data||[];LOADED=true}else{FB=data||[];FBLOADED=true}
+ if(name==="propuestas"){ALL=data||[];LOADED=true}else if(name==="respuestas"){RESP=data||[]}else{FB=data||[];FBLOADED=true}
  decorate();refreshDrawer();
 }
 function makeDB(){
@@ -954,8 +995,9 @@ async function boot(){
  DB=makeDB();
  const fail=()=>{LOADED=true;FBLOADED=true;LOAD_ERR="No se pueden cargar las propuestas ahora mismo. Recarga la página en unos segundos.";refreshDrawer()};
  await Promise.all([load("propuestas"),load("feedback")]).catch(fail);
- try{SB.channel("revision").on("postgres_changes",{event:"*",schema:"public",table:"propuestas"},()=>load("propuestas").catch(()=>{})).on("postgres_changes",{event:"*",schema:"public",table:"feedback"},()=>load("feedback").catch(()=>{})).subscribe()}catch(e){}
- setInterval(()=>{if(!document.hidden){load("propuestas").catch(()=>{});load("feedback").catch(()=>{})}},60000);
+ load("respuestas").catch(()=>{});
+ try{SB.channel("revision").on("postgres_changes",{event:"*",schema:"public",table:"propuestas"},()=>load("propuestas").catch(()=>{})).on("postgres_changes",{event:"*",schema:"public",table:"feedback"},()=>load("feedback").catch(()=>{})).on("postgres_changes",{event:"*",schema:"public",table:"respuestas"},()=>load("respuestas").catch(()=>{})).subscribe()}catch(e){}
+ setInterval(()=>{if(!document.hidden){load("propuestas").catch(()=>{});load("feedback").catch(()=>{});load("respuestas").catch(()=>{})}},60000);
 }
 boot();
 </script>

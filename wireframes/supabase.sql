@@ -58,3 +58,22 @@ exception when duplicate_object then null; end $$;
 do $$ begin
   alter publication supabase_realtime add table public.feedback;
 exception when duplicate_object then null; end $$;
+
+-- Respuestas: conversación bajo cada propuesta o feedback.
+create table if not exists public.respuestas (
+  id        uuid primary key default gen_random_uuid(),
+  ref_tabla text not null check (ref_tabla in ('propuestas','feedback')),
+  ref_id    uuid not null,
+  texto     text not null check (char_length(texto) between 1 and 2000),
+  autor     text not null check (char_length(autor) between 1 and 80),
+  creado    timestamptz not null default now()
+);
+alter table public.respuestas enable row level security;
+drop policy if exists "leer respuestas"  on public.respuestas;
+drop policy if exists "crear respuestas" on public.respuestas;
+create policy "leer respuestas"  on public.respuestas for select to anon using (true);
+create policy "crear respuestas" on public.respuestas for insert to anon with check (true);
+revoke update, delete on public.respuestas from anon;
+do $$ begin
+  alter publication supabase_realtime add table public.respuestas;
+exception when duplicate_object then null; end $$;
