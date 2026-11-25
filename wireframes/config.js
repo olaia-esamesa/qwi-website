@@ -1,9 +1,7 @@
 // Conexión con la base de datos de la revisión (Supabase).
-// Copia aquí la "Project URL" y la clave "anon public" de tu proyecto:
-// Supabase → Project Settings → API.
-// La clave anon es pública por diseño: lo que se puede hacer con ella lo
-// limitan las reglas de supabase.sql.
+// La clave "publishable" es pública por diseño: lo que se puede hacer con ella
+// lo limitan las reglas de supabase.sql. No pongas aquí nunca la clave secreta.
 window.QWI_SUPABASE = {
-  url: "",
-  anonKey: ""
+  url: "https://dsutjeiuezlcptkgymvs.supabase.co",
+  anonKey: "sb_publishable_lhwhbjpLhYdHENC0z1OaHg_AIwxcI1m"
 };

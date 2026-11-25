@@ -10,7 +10,7 @@ Página de revisión de los wireframes (Figma «Wireframes v4»). El cliente nav
 
 1. Crea un proyecto gratuito en [supabase.com](https://supabase.com).
 2. En **SQL Editor**, pega el contenido de `supabase.sql` y pulsa **Run**.
-3. En **Project Settings → API**, copia la **Project URL** y la clave **anon public** en `config.js`.
+3. En **Project Settings → API**, copia la **Project URL** y la clave **publishable** (o la antigua **anon public**) en `config.js`.
 4. Sube los cambios. Con GitHub Pages activo (Settings → Pages → rama `main`, carpeta `/`), la página queda en `https://olaia-esamesa.github.io/qwi-website/wireframes/`.
 
 ## Uso
