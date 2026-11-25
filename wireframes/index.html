@@ -363,7 +363,7 @@ body{margin:0}
     <div>
       <span class="kick">Para el equipo de Qwi · Nueva web · Wireframes v0.8 · 11 páginas</span>
       <h1 id="wTitle">Esta es la estructura de vuestra nueva web. Contadnos qué cambiaríais.</h1>
-      <p class="lead">Antes de pasar al diseño visual, queremos cerrar con vosotros qué cuenta cada página y cómo lo cuenta. Navegad como si fuera la web real: los textos son los definitivos que proponemos, el aspecto todavía no. Todo lo que escribáis se guarda solo, firmado con vuestro nombre, y lo vemos tanto vuestro equipo como el de Esamesa.</p>
+      <p class="lead">Antes de pasar al diseño visual, queremos cerrar con vosotros qué cuenta cada página y cómo lo cuenta. Navegad como si fuera la web real: los textos son los definitivos que proponemos, el aspecto todavía no. Todo lo que escribáis se guarda solo y queda firmado con el nombre que pongáis, visible para todos: vuestro equipo y el de Esamesa.</p>
     </div>
     <div class="wsteps">
       <div class="wstep"><span class="num">01 · Textos</span><h2>Propón un texto</h2><p>Haz clic en cualquier título, párrafo o botón y escribe cómo lo diríais en Qwi. Añade una nota si quieres explicar el porqué o corregir un dato técnico.</p>
@@ -948,7 +948,7 @@ function threadEl(tabla,id){
   const row=el("div","row2");const b=el("button","btn","Responder");b.type="submit";b.style.padding="7px 12px";const cx=el("button","mini","Cancelar");cx.type="button";const msg=el("span","msg");msg.setAttribute("role","status");
   cx.addEventListener("click",()=>{ROPEN=null;refreshDrawer()});
   row.append(b,cx,msg);
-  if(!ME)f.append(nm);f.append(ta,row);
+  if(!ME){f.append(nm,el("span","where","Tu nombre será visible para todos."))}f.append(ta,row);
   f.addEventListener("submit",async e=>{e.preventDefault();const v=ta.value.trim();const n=(ME||nm.value.trim());
    if(!n){msg.className="msg err";msg.textContent="Escribe tu nombre.";return}
    if(!v){msg.className="msg err";msg.textContent="Escribe tu respuesta.";return}
@@ -969,7 +969,8 @@ function threadEl(tabla,id){
 function nameField(){
  const w=el("div","who");const l=el("label","lbl","Tu nombre");l.htmlFor="whoName";
  const i=document.createElement("input");i.className="txt";i.id="whoName";i.maxLength=80;i.autocomplete="name";i.placeholder="Nombre y empresa";i.value=ME||"";
- w.append(l,i);
+ const h=el("span","where","Tu nombre y lo que escribas los verá todo el equipo de Qwi y de Esamesa.");
+ w.append(l,i,h);
  return{el:w,get(){const v=i.value.trim();if(v){ME=v;try{localStorage.setItem("qwi-nombre",v)}catch(e){}}return v}};
 }
 let SB=null;
